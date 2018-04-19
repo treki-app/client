@@ -15,6 +15,8 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import SignIn from './src/screens/SignIn';
 import Home from './src/screens/Home';
 import AddDevice from './src/screens/AddDevice';
+import { Provider } from 'react-redux';
+import store from './src/store';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -26,7 +28,9 @@ const instructions = Platform.select({
 export default class App extends Component {
   render() {
     return (
+      <Provider store={ store }>
         <RootStack/>
+      </Provider>
     );
   }
 }

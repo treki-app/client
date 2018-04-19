@@ -113,11 +113,14 @@ class SignIn extends Component {
           >
             <Text style={styles.text}> Login With Facebook </Text>
           </Button> 
+          <Button style={{marginTop:10}}
+            block
+            primary
+            onPress={()=> this.props.navigation.navigate('Home')}
+          >
+            <Text style={styles.text}> KLIK YANG INI BRAY </Text>
+          </Button>
         </Form>
-        <Button
-          title="Sign In"
-          onPress={()=> this.props.navigation.navigate('Home')}
-        />
       </View>
     );
   }

@@ -9,6 +9,7 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import BluetoothScan from '../components/BluetoothScan';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AddDevice from './AddDevice';
+import Maps from '../components/Maps';
 
 class Home extends Component {
 
@@ -28,17 +29,17 @@ class Home extends Component {
 
   render() {
     return (
-      <View>
-        <BluetoothScan/>
+      <View style={styles.container}>
         <Button
           onPress={() => this.props.navigation.navigate('DrawerOpen')}
           title="Hamburger"
         />
+        <BluetoothScan/>
+        <Maps/>
       </View>
     );
   }
 }
-
 
 const Drawer = DrawerNavigator(
   {
@@ -57,11 +58,9 @@ const Drawer = DrawerNavigator(
   }
 )
 
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center'
-  }
+const styles = StyleSheet.create({
+  container: { ...StyleSheet.absoluteFillObject },
+
 })
 
 export default Drawer;

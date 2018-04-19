@@ -11,9 +11,10 @@ import {
   Text,
   View
 } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import SignIn from './src/screens/SignIn';
 import Home from './src/screens/Home';
+import AddDevice from './src/screens/AddDevice';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -25,7 +26,7 @@ const instructions = Platform.select({
 export default class App extends Component {
   render() {
     return (
-      <RootStack/>
+        <RootStack/>
     );
   }
 }
@@ -40,6 +41,10 @@ const RootStack = StackNavigator(
     }
   },
   {
-    initialRouteName: 'SignIn'
+    initialRouteName: 'SignIn',
+    headerMode: 'screen',
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
   }
 )

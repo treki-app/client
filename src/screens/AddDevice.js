@@ -7,12 +7,13 @@ import {
 } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import BluetoothScan from '../components/BluetoothScan';
 import AddDeviceForm from '../components/AddDeviceForm';
 
 class AddDevice extends Component {
 
   static navigationOptions = {
-    tabBarLabel: `Treki App`,
+    drawerLabel: 'Add Device',
     drawerIcon: ({tintColor}) => {
       return (
         <MaterialIcons
@@ -28,11 +29,12 @@ class AddDevice extends Component {
   render() {
     return (
       <View>
-        <AddDeviceForm/>
         <Button
           onPress={() => this.props.navigation.navigate('DrawerOpen')}
           title="Hamburger"
         />
+        <BluetoothScan/>
+        <AddDeviceForm/>
       </View>
     );
   }

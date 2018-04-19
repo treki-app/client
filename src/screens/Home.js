@@ -5,23 +5,22 @@ import {
   StyleSheet
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import BluetoothScan from '../components/BluetoothScan'
+import Maps from '../components/Maps';
+import BluetoothScan from '../components/BluetoothScan';
 
 class Home extends Component {
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <BluetoothScan/>
+        <Maps/>
       </View>
     );
   }
 }
 
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center'
-  }
+const styles = StyleSheet.create({
+  container: { ...StyleSheet.absoluteFillObject },
 })
 
 export default Home;

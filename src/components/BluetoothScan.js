@@ -34,6 +34,7 @@ class BluetoothScan extends Component {
 
   scanAndConnect = () => {
     console.log(`Masuk sini !!!`)
+
     const subscription = this.manager.onStateChange((state) => {
       if (state === 'PoweredOn') {
         this.manager.startDeviceScan(null, null , (error, device) => {
@@ -51,10 +52,9 @@ class BluetoothScan extends Component {
                 arrAvailable:[ ...this.state.arrAvailable, device.id]
               })
             }
-          }
-        
+          }        
           subscription.remove();
-          //     this.manager.stopDeviceScan();
+          // this.manager.stopDeviceScan();
         });
       }
     }, true);

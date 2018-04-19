@@ -34,7 +34,6 @@ class BluetoothScan extends Component {
 
   scanAndConnect = () => {
     console.log(`Masuk sini !!!`)
-    this.manager.setLogLevel(LogLevel.Verbose)
     const subscription = this.manager.onStateChange((state) => {
       if (state === 'PoweredOn') {
         this.manager.startDeviceScan(null, null , (error, device) => {

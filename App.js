@@ -11,6 +11,9 @@ import {
   Text,
   View
 } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import SignIn from './src/screens/SignIn';
+import Home from './src/screens/Home';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -22,36 +25,21 @@ const instructions = Platform.select({
 export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, baca bismillah
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <RootStack/>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+const RootStack = StackNavigator(
+  {
+    SignIn: {
+      screen: SignIn
+    },
+    Home: {
+      screen: Home
+    }
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+  {
+    initialRouteName: 'SignIn'
+  }
+)

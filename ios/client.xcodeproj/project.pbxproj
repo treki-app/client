@@ -38,6 +38,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		0F639AFB9D494698A4DE8C71 /* libBleClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA5815B8D6104F1AA1F3CA5B /* libBleClient.a */; };
+		31210B06ABC6415A945FB0B1 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2C0BACE8CF847148EEA39C9 /* libRCTFBSDK.a */; };
 		9771ED0CB25A4F7F89726882 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 681A8776A94E40BCA4A3DF01 /* libAirMaps.a */; };
 		B32011B1AFDE4A6CA2B1D3A9 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 136071090EAB4A10B7F0583D /* Entypo.ttf */; };
 		D4580EFDCA5845949C8C4BB7 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E21B33CDF4141C98D512D5E /* EvilIcons.ttf */; };
@@ -51,6 +52,7 @@
 		58B08FB7F3BF4484A899FCE1 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CFB61624BB345B7A0606BB2 /* rubicon-icon-font.ttf */; };
 		2013760A2D5149409D1C3084 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3D46D452F914A4BB5603966 /* SimpleLineIcons.ttf */; };
 		F8A8DE971ED34D039340A04F /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19496ACB49CC4A6DADCAFF8A /* Zocial.ttf */; };
+
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -358,6 +360,8 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		93FC5476803448BFB695D474 /* BleClient.xcodeproj */ = {isa = PBXFileReference; name = "BleClient.xcodeproj"; path = "../node_modules/react-native-ble-plx/ios/BleClient.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		BA5815B8D6104F1AA1F3CA5B /* libBleClient.a */ = {isa = PBXFileReference; name = "libBleClient.a"; path = "libBleClient.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		4ECA163DF938440B8CD9194A /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; name = "RCTFBSDK.xcodeproj"; path = "../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		C2C0BACE8CF847148EEA39C9 /* libRCTFBSDK.a */ = {isa = PBXFileReference; name = "libRCTFBSDK.a"; path = "libRCTFBSDK.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		B6BDFFF6C8D249CCA984D00A /* AirMaps.xcodeproj */ = {isa = PBXFileReference; name = "AirMaps.xcodeproj"; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		681A8776A94E40BCA4A3DF01 /* libAirMaps.a */ = {isa = PBXFileReference; name = "libAirMaps.a"; path = "libAirMaps.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		136071090EAB4A10B7F0583D /* Entypo.ttf */ = {isa = PBXFileReference; name = "Entypo.ttf"; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
@@ -372,6 +376,7 @@
 		7CFB61624BB345B7A0606BB2 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		C3D46D452F914A4BB5603966 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		19496ACB49CC4A6DADCAFF8A /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -401,6 +406,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				0F639AFB9D494698A4DE8C71 /* libBleClient.a in Frameworks */,
+				31210B06ABC6415A945FB0B1 /* libRCTFBSDK.a in Frameworks */,
 				9771ED0CB25A4F7F89726882 /* libAirMaps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -589,6 +595,7 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				93FC5476803448BFB695D474 /* BleClient.xcodeproj */,
+				4ECA163DF938440B8CD9194A /* RCTFBSDK.xcodeproj */,
 				B6BDFFF6C8D249CCA984D00A /* AirMaps.xcodeproj */,
 			);
 			name = Libraries;
@@ -1255,6 +1262,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-ble-plx/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
@@ -1282,7 +1290,9 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-ble-plx/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
+
 				);
 			};
 			name = Release;
@@ -1305,6 +1315,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-ble-plx/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
@@ -1327,6 +1338,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-ble-plx/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
@@ -1363,6 +1375,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-ble-plx/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
@@ -1399,6 +1412,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-ble-plx/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
@@ -1434,6 +1448,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-ble-plx/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};
@@ -1469,6 +1484,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-ble-plx/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
 					"$(SRCROOT)\..\node_modules\react-native-maps\lib\ios/**",
 				);
 			};

@@ -72,12 +72,12 @@ const Drawer = DrawerNavigator(
 
 const UserAccess = StackNavigator(
   {
+    Splash: {
+      screen: Splash
+    },
     Register: {
       screen: Register
     },
-    Splash: {
-      screen: Splash
-    }
   },
   {
     initialRouteName: 'Splash',

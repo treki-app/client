@@ -19,7 +19,7 @@ class Splash  extends Component {
     return (  
       <View style={styles.container}>
         <Image style={{width: 130 , height: 160, marginBottom: 100}}
-             source={require('../logo.png')}
+             source={require('../splashwithtext.png')}
         />
       </View>
     )

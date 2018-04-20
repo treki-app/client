@@ -19,11 +19,12 @@ class Login extends Component {
   render() { 
     return ( 
       <View style={styles.container}>
-        <Form type="Login"/>
         <Logo/>
+        <Text style={styles.Text}> Sign in below to track your devices </Text>
+        <Form type="Login"/>
         <View style={styles.signupTextCont}>
           <Text style={styles.signupText}> Don't have an Account yet ?</Text>
-          <Text onPress={this.signup()} style={styles.signupButton}> Signup</Text>
+          <Text onPress={this.signup} style={styles.signupButton}> Signup</Text>
         </View>
       </View>
      )
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#455a64'
+    backgroundColor: '#006971'
   },
   signupTextCont:{
     flexGrow: 1,
@@ -52,6 +53,10 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     fontWeight: '500'
+  },
+  Text:{
+    fontSize: 16,
+    color: 'rgba(255,255,255, 0.7)'
   }
 })
 

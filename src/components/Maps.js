@@ -56,7 +56,15 @@ class Maps extends Component {
           }}
         >
           {
-            this.props.devices.map(marker => (<Marker key={marker.createdAt} latitude={marker.location.latitude} longitude={marker.location.longitude} accuracy={marker.location.accuracy} />)) 
+            this.props.devices.map(marker => (
+            <Marker
+              key={marker.createdAt}
+              latitude={marker.location.latitude}
+              longitude={marker.location.longitude}
+              accuracy={marker.location.accuracy}
+              title={marker.name}
+              description={marker.updatedAt.toString()}
+            />)) 
           }
         </MapView>
       </View>
@@ -67,10 +75,10 @@ class Maps extends Component {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 96,
-    bottom: 64,
-    left: 32,
-    right: 32
+    top: 32,
+    bottom: 0,
+    left: 0,
+    right: 0
   },
   map: { ...StyleSheet.absoluteFillObject }
 });

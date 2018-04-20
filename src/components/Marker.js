@@ -9,7 +9,7 @@ export default class Marker extends Component {
           latitude: this.props.latitude,
           longitude: this.props.longitude
         }}
-        radius = { 10 }
+        radius = { this.props.accuracy }
         fillColor = 'rgba(242,245,101,0.5)'
       />
     )

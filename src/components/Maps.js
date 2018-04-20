@@ -3,29 +3,42 @@ import { View, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 import Marker from './Marker';
 
-export default class Maps extends Component {
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import { LoadTreki } from '../store/treki/treki.action';
+
+const MapStateToProps = (state) => {
+  return {
+    isLoading: state.treki.isLoading,
+    isError: state.treki.isError,
+    devices: state.treki.devices,
+  }
+}
+
+const MapDispatchToProps = (dispatch) => bindActionCreators({ LoadTreki }, dispatch)
+
+class Maps extends Component {
   state = {
-    markerData: [
-      {
-        latitude: 37.78825,
-        longitude: -122.4324
-      },
-      {
-        latitude: 37.787,
-        longitude: -122.4324
-      }
-    ],
     midPoint: {
       latitude: 0,
       longitude: 0
     }
   }
 
-  componentWillMount = () => {
+  componentWillMount = async () => {
+    await this.props.LoadTreki(this.setCoordinate);
+  }
+
+  setCoordinate = () => {
+    let sumCoordinate = { latitude: 0, longitude: 0 };
+    this.props.devices.forEach(element => {
+      sumCoordinate.latitude += element.location.latitude;
+      sumCoordinate.longitude += element.location.longitude;
+    });
     let newMidPoint = {
-      latitude : this.state.markerData.reduce((acc, cur) => acc.latitude + cur.latitude)/this.state.markerData.length,
-      longitude : this.state.markerData.reduce((acc, cur) => acc.longitude + cur.longitude)/this.state.markerData.length
+      latitude : sumCoordinate.latitude / this.props.devices.length,
+      longitude : sumCoordinate.longitude / this.props.devices.length
     }
     this.setState({ midPoint: newMidPoint })
   }
@@ -43,7 +56,7 @@ export default class Maps extends Component {
           }}
         >
           {
-            this.state.markerData.map(marker => (<Marker latitude={marker.latitude} longitude={marker.longitude} />)) 
+            this.props.devices.map(marker => (<Marker key={marker.createdAt} latitude={marker.location.latitude} longitude={marker.location.longitude} accuracy={marker.location.accuracy} />)) 
           }
         </MapView>
       </View>
@@ -52,6 +65,14 @@ export default class Maps extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { ...StyleSheet.absoluteFillObject },
+  container: {
+    position: 'absolute',
+    top: 96,
+    bottom: 64,
+    left: 32,
+    right: 32
+  },
   map: { ...StyleSheet.absoluteFillObject }
 });
+
+export default connect(MapStateToProps, MapDispatchToProps)(Maps)

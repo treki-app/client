@@ -10,7 +10,7 @@ import { BleManager, LogLevel } from 'react-native-ble-plx'
 import AvailableDevice from './AvailableDevice'
 import { connect } from 'react-redux'; 
 import { bindActionCreators } from 'redux';
-import { getAllTreki } from '../store/device/treki.actions'
+import { loadRegisteredDevices } from '../store/treki/treki.action'
 
 class BluetoothScan extends Component {
   constructor () {
@@ -28,7 +28,7 @@ class BluetoothScan extends Component {
   }
 
   componentDidMount () {
-    this.props.getAllTreki()
+    this.props.loadRegisteredDevices()
   }
 
   renderItem = ({item}) => {
@@ -70,9 +70,6 @@ class BluetoothScan extends Component {
   render() {
     return (
       <View style={{marginTop: 20}}>
-        {/* <Text>
-          { JSON.stringify(this.props.trekiList) }
-        </Text> */}
         <View style={{width: 100, marginLeft: 120}}>
           <Button
             onPress={ () => {this.scanAndConnect() }}
@@ -113,12 +110,13 @@ const style = StyleSheet.create({
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  getAllTreki
+  loadRegisteredDevices
 },dispatch)
 
 const mapStateToProps = (state) => {
   return {
-    trekiList: state.trekiReducers.trekiList
+    registeredDevices: state.treki.registeredDevices,
+    devices: state.treki.devices
   }
 }
 

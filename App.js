@@ -22,7 +22,7 @@ import Home from './src/screens/Home';
 import AddDevice from './src/screens/AddDevice';
 import ScanDevice from './src/screens/ScanDevice';
 import { Provider } from 'react-redux';
-import store from './src/store/store';
+import store from './src/store';
 
 
 export default class App extends Component {

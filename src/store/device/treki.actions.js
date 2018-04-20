@@ -1,9 +1,13 @@
 import {
   GET_ALL_TREKI_FULFILLED,
   GET_ALL_TREKI_REJECTED,
-  GET_ALL_TREKI_REQUESTED
+  GET_ALL_TREKI_REQUESTED,
+  GET_TREKI_FIREBASE_FULFILLED,
+  GET_TREKI_FIREBASE_REJECTED,
+  GET_TREKI_FIREBASE_REQUESTED
 } from './treki.actionTypes'
 import axios from 'axios'
+import { database } from '../firebase'
 
 export function getAllTreki () {
   return (dispatch) => {
@@ -47,5 +51,42 @@ const getAllTrekiFulfilled = (payload) => {
   return {
     type: GET_ALL_TREKI_FULFILLED,
     payload
+  }
+}
+
+export const LoadTreki = (callback) => {
+  return dispatch => {
+    dispatch(loading());
+    database.ref(`/treki`).on('value', snapshot => {
+      let value = [];
+      snapshot.forEach(e => {
+        let item = e.val();
+        item.key = e.key;
+        if (item.user_id == '-LARdlvlVYAZd_HlbxSS') value.push(item);
+      });
+      dispatch(success(value));
+      callback();
+    }, error => {
+      dispatch(error());
+    });
+  }
+}
+
+const loading = () => {
+  return {
+    type: GET_TREKI_FIREBASE_REQUESTED
+  }
+}
+
+const error = () => {
+  return {
+    type: GET_TREKI_FIREBASE_REJECTED
+  }
+}
+
+const success = (value) => {
+  return {
+    type: GET_TREKI_FIREBASE_FULFILLED,
+    value
   }
 }

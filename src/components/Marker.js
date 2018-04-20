@@ -26,9 +26,9 @@ export default class Marker extends Component {
           }}
           image={require('../../public/img/marker3.png')}
         >
-          <View style={{ alignItems: 'center', paddingHorizontal: 6 }}>
+          <View style={{ alignItems: 'center', paddingHorizontal: 16 }}>
             <Text style={{ color:'#fff', fontWeight:'bold', fontSize:12 }}>{ this.props.title }</Text>
-            <Text style={{ color:'#fff', fontSize:10 }}>{ this.props.description }</Text>
+            <Text style={{ color:'#fff', fontSize:8 }}>{ this.props.description }</Text>
           </View>
       </Mark>
       </View>

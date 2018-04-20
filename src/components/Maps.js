@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
+import moment from 'moment';
 import Marker from './Marker';
 
 import { connect } from 'react-redux';
@@ -63,7 +64,7 @@ class Maps extends Component {
               longitude={marker.location.longitude}
               accuracy={marker.location.accuracy}
               title={marker.name}
-              description={marker.updatedAt.toString()}
+              description={moment(marker.updatedAt).fromNow()}
             />)) 
           }
         </MapView>

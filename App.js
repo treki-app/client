@@ -17,6 +17,7 @@ import {
   SwitchNavigator
 } from 'react-navigation';
 import Register from './src/screens/Register';
+import Splash from './src/screens/splashScreen' 
 import Home from './src/screens/Home';
 import AddDevice from './src/screens/AddDevice';
 import ScanDevice from './src/screens/ScanDevice';
@@ -74,9 +75,12 @@ const UserAccess = StackNavigator(
     Register: {
       screen: Register
     },
+    Splash: {
+      screen: Splash
+    }
   },
   {
-    initialRouteName: 'Register',
+    initialRouteName: 'Splash',
     headerMode: 'screen',
     navigationOptions: ({ navigation }) => ({
       header: null

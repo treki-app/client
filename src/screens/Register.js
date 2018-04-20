@@ -7,10 +7,9 @@ import {
   StatusBar
 } from 'react-native'
 import { StackNavigator } from 'react-navigation';
-import Login from '../components/login'
-import SignUp from '../components/signup'
+import Routes from '../components/Register/RouteRegister'
 
-class SignIn extends Component {
+class Register extends Component {
   render() {
     return (
       <View style={style.container}>
@@ -18,7 +17,7 @@ class SignIn extends Component {
           backgroundColor="#1c313a"
           barStyle="light-content"
         />
-        <SignUp/>
+        <Routes/>
         <Button
           title="Klik sini bray buat tes bluetooth"
           onPress={()=> this.props.navigation.navigate('Home')}
@@ -30,11 +29,8 @@ class SignIn extends Component {
 
 const style = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#455a64'
+    flex: 1
   }
 })
 
-export default SignIn;
+export default Register;

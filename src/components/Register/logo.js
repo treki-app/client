@@ -12,8 +12,8 @@ class Logo extends Component {
   render() { 
     return (  
     <View style={styles.container}>
-      <Image style={{width: 40 , height: 70}}
-             source={require('../logo.png')}
+      <Image style={{width: 100 , height: 120}}
+             source={require('../../logo.png')}
       />
       <Text style={styles.logoText}> Welcome to Trecky </Text>
     </View>
@@ -28,6 +28,7 @@ const styles= StyleSheet.create({
     alignItems: 'center'
   },
   logoText:{
+    marginTop: 20,
     marginVertical: 15,
     fontSize: 18,
     color: 'rgba(255,255,255, 0.7)'

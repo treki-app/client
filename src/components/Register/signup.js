@@ -6,10 +6,16 @@ import {
   Button,
   StatusBar
 } from 'react-native'
-import Logo from '../components/logo'
-import Form from '../components/form'
+import Logo from './logo'
+import Form from './form'
+import {Actions} from 'react-native-router-flux'
 
 class Signup extends Component {
+  
+  goBack(){
+    Actions.pop()
+
+  }
   render() { 
     return ( 
       <View style={styles.container}>
@@ -17,7 +23,7 @@ class Signup extends Component {
         <Form type="Signup"/>
         <View style={styles.signupTextCont}>
           <Text style={styles.signupText}> Already have an account ?</Text>
-          <Text style={styles.signupButton}> Sign in</Text>
+          <Text onPress={this.goBack} style={styles.signupButton}> Sign in</Text>
         </View>
       </View>
      )

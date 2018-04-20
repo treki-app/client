@@ -6,18 +6,24 @@ import {
   Button,
   StatusBar
 } from 'react-native'
-import Logo from '../components/logo'
-import Form from '../components/form'
+import Logo from './logo'
+import Form from './form'
+import {Actions} from 'react-native-router-flux'
 
 class Login extends Component {
+  
+  signup(){
+    Actions.signup()
+  }
+
   render() { 
     return ( 
       <View style={styles.container}>
-        <Logo/>
         <Form type="Login"/>
+        <Logo/>
         <View style={styles.signupTextCont}>
           <Text style={styles.signupText}> Don't have an Account yet ?</Text>
-          <Text style={styles.signupButton}> Signup</Text>
+          <Text onPress={this.signup()} style={styles.signupButton}> Signup</Text>
         </View>
       </View>
      )

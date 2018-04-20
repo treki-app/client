@@ -33,7 +33,7 @@ class BluetoothScan extends Component {
 
   renderItem = ({item}) => {
     return (
-      <AvailableDevice item={item} />
+      <AvailableDevice item={item} navigation={this.props.navigation}/>
     )
   }
 
@@ -41,7 +41,6 @@ class BluetoothScan extends Component {
 
   scanAndConnect = () => {
     console.log(`Masuk sini !!!`)
-
     const subscription = this.manager.onStateChange((state) => {
       if (state === 'PoweredOn') {
         this.manager.startDeviceScan(null, null , (error, device) => {
@@ -70,14 +69,17 @@ class BluetoothScan extends Component {
 
   render() {
     return (
-      <View>
-        <Button
-          onPress={ () => {this.scanAndConnect() }}
-          title={`Scan Device`}
-        />
-        <Text>
+      <View style={{marginTop: 20}}>
+        {/* <Text>
           { JSON.stringify(this.props.trekiList) }
-        </Text>
+        </Text> */}
+        <View style={{width: 100, marginLeft: 120}}>
+          <Button
+            onPress={ () => {this.scanAndConnect() }}
+            title={`Scan Device`}
+          />
+        </View>
+
         <FlatList 
           contentContainerStyle = { style.flatList }
           data = { this.state.arrAvailable }

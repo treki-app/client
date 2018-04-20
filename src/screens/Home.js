@@ -7,8 +7,10 @@ import {
 } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import ScanDevice from './ScanDevice';
 import AddDevice from './AddDevice';
 import Maps from '../components/Maps';
+import HamburgerButton from '../components/HamburgerButton'
 
 class Home extends Component {
 
@@ -39,28 +41,9 @@ class Home extends Component {
   }
 }
 
-const Drawer = DrawerNavigator(
-  {
-    Home: {
-      path: '/',
-      screen: Home,
-      name: 'Home'
-    },
-    AddDevice: {
-      path: '/adddevice',
-      screen: AddDevice,
-      name: 'Add Device'
-    }
-  },
-  {
-    initialRouteName: 'Home',
-    drawerPosition: 'left'
-  }
-)
-
 const styles = StyleSheet.create({
   container: { ...StyleSheet.absoluteFillObject },
 
 })
 
-export default Drawer;
+export default Home;

@@ -4,17 +4,18 @@ import {
   View,
   Button
 } from 'react-native'
+import { DrawerNavigator, StackNavigator } from 'react-navigation';
 
 class AvailableDevice extends Component {
   render() {
+    const { navigation } = this.props
     return (
       <View style={ style.flatListItem }>
         <View style={ style.flatListButton }>
           <Button
             title={this.props.item}
             color="#ff6600"
-            onPress={ () => { console.log(`Halloo`) }}
-            // navigate.navigate('LeagueTable', {competitionId: item.id, competitionName: item.caption})
+            onPress={ () => navigation.navigate('addDevice')}
           />
         </View>
       </View>

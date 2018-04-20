@@ -6,15 +6,16 @@ import {
   Button
 } from 'react-native';
 import { StackNavigator, DrawerNavigator } from 'react-navigation';
-import BluetoothScan from '../components/BluetoothScan';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import ScanDevice from './ScanDevice';
 import AddDevice from './AddDevice';
 import Maps from '../components/Maps';
+import HamburgerButton from '../components/HamburgerButton'
 
 class Home extends Component {
 
   static navigationOptions = {
-    tabBarLabel: `Treki App`,
+    drawerLabel: 'Home',
     drawerIcon: ({tintColor}) => {
       return (
         <MaterialIcons
@@ -34,33 +35,15 @@ class Home extends Component {
           onPress={() => this.props.navigation.navigate('DrawerOpen')}
           title="Hamburger"
         />
-        <BluetoothScan/>
         <Maps/>
       </View>
     );
   }
 }
 
-const Drawer = DrawerNavigator(
-  {
-    Home: {
-      path: '/',
-      screen: Home
-    },
-    AddDevice: {
-      path: '/adddevice',
-      screen: AddDevice
-    }
-  },
-  {
-    initialRouteName: 'Home',
-    drawerPosition: 'left'
-  }
-)
-
 const styles = StyleSheet.create({
   container: { ...StyleSheet.absoluteFillObject },
 
 })
 
-export default Drawer;
+export default Home;

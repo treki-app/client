@@ -8,6 +8,9 @@ import {
 } from 'react-native';
 import { BleManager, LogLevel } from 'react-native-ble-plx'
 import AvailableDevice from './AvailableDevice'
+import { connect } from 'react-redux'; 
+import { bindActionCreators } from 'redux';
+import { getAllTreki } from '../store/device/treki.actions'
 
 class BluetoothScan extends Component {
   constructor () {
@@ -24,9 +27,13 @@ class BluetoothScan extends Component {
     }
   }
 
+  componentDidMount () {
+    this.props.getAllTreki()
+  }
+
   renderItem = ({item}) => {
     return (
-      <AvailableDevice item={item} />
+      <AvailableDevice item={item} navigation={this.props.navigation}/>
     )
   }
 
@@ -34,7 +41,6 @@ class BluetoothScan extends Component {
 
   scanAndConnect = () => {
     console.log(`Masuk sini !!!`)
-
     const subscription = this.manager.onStateChange((state) => {
       if (state === 'PoweredOn') {
         this.manager.startDeviceScan(null, null , (error, device) => {
@@ -63,11 +69,17 @@ class BluetoothScan extends Component {
 
   render() {
     return (
-      <View>
-        <Button
-          onPress={ () => {this.scanAndConnect() }}
-          title={`Scan Device`}
-        />
+      <View style={{marginTop: 20}}>
+        {/* <Text>
+          { JSON.stringify(this.props.trekiList) }
+        </Text> */}
+        <View style={{width: 100, marginLeft: 120}}>
+          <Button
+            onPress={ () => {this.scanAndConnect() }}
+            title={`Scan Device`}
+          />
+        </View>
+
         <FlatList 
           contentContainerStyle = { style.flatList }
           data = { this.state.arrAvailable }
@@ -100,4 +112,14 @@ const style = StyleSheet.create({
   }
 })
 
-export default BluetoothScan;
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  getAllTreki
+},dispatch)
+
+const mapStateToProps = (state) => {
+  return {
+    trekiList: state.trekiReducers.trekiList
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BluetoothScan);

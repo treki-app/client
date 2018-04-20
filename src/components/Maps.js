@@ -56,7 +56,16 @@ class Maps extends Component {
           }}
         >
           {
-            this.props.devices.map(marker => (<Marker key={marker.createdAt} latitude={marker.location.latitude} longitude={marker.location.longitude} accuracy={marker.location.accuracy} />)) 
+            this.props.devices.map(marker => (
+            <Marker
+              key={marker.createdAt}
+              latitude={marker.location.latitude}
+              longitude={marker.location.longitude}
+              accuracy={marker.location.accuracy}
+              title={marker.name}
+              description={marker.updatedAt.toString()}
+            />
+            )) 
           }
         </MapView>
       </View>

@@ -28,9 +28,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new VectorIconsPackage(),
-            new RNFirebasePackage(),
-            new FacebookLoginPackage(),
+          new VectorIconsPackage(),
+          new RNFirebasePackage(),
+          new FacebookLoginPackage(),
           new BlePackage(),
           new MapsPackage()
       );

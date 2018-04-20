@@ -5,6 +5,7 @@ import {
   LOAD_REGISTERED_DEVICE_SUCCESS
 } from './treki.actionType';
 import { database } from '../firebase';
+import axios from 'axios';
 
 const loading = () => {
   return {
@@ -61,5 +62,24 @@ export const loadRegisteredDevices = () => {
     })
 
     dispatch(successLoadRegistered(registeredDevices))
+  }
+}
+
+export const saveNewDevice = (payload) => {
+  return (dispatch) => {
+    console.warn('Masuk save new device')
+    return axios({
+      method: `POST`,
+      url: `http://treki.fadhilmch.com/treki`,
+      data: {
+        ...payload
+      }
+    })
+      .then(() => {
+
+      })
+      .catch((err) => {
+        console.warn(err)
+      })
   }
 }

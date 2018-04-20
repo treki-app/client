@@ -24,7 +24,7 @@ class Login extends Component {
   }
 }
  
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',

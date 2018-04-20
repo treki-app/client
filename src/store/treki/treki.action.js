@@ -1,4 +1,9 @@
-import { LOADING, ERROR, LOAD_TREKI_SUCCESS } from './treki.actionType';
+import { 
+  LOADING, 
+  ERROR, 
+  LOAD_TREKI_SUCCESS,
+  LOAD_REGISTERED_DEVICE_SUCCESS
+} from './treki.actionType';
 import { database } from '../firebase';
 
 const loading = () => {
@@ -20,6 +25,13 @@ const success = (value) => {
   }
 }
 
+const successLoadRegistered = (payload) => {
+  return {
+    type: LOAD_REGISTERED_DEVICE_SUCCESS,
+    payload
+  }
+}
+
 export const LoadTreki = (callback) => {
   return dispatch => {
     dispatch(loading());
@@ -27,13 +39,27 @@ export const LoadTreki = (callback) => {
       let value = [];
       snapshot.forEach(e => {
         let item = e.val();
-        item.key = e.key;
-        if (item.user_id == '-LARdlvlVYAZd_HlbxSS') value.push(item);
+        item.id = e.key;
+        // if (item.user_id == '-LARdlvlVYAZd_HlbxSS')
+        value.push(item);
       });
       dispatch(success(value));
       callback();
     }, error => {
       dispatch(error());
     });
+  }
+}
+
+export const loadRegisteredDevices = () => {
+  return (dispatch,getState) => {
+    dispatch(loading());
+    let getDevices = getState().treki.devices
+
+    let registeredDevices = getDevices.map((val) => {
+      return val.device_id
+    })
+
+    dispatch(successLoadRegistered(registeredDevices))
   }
 }

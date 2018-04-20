@@ -17,6 +17,11 @@
     />
 
     <!-- Facebook Setup -->
+
+    <!-- LOCATION SETUP -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- LOCATION SETUP -->
+    
     
     <application
       android:name=".MainApplication"

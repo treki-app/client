@@ -1,16 +1,20 @@
 import {
   GET_ALL_TREKI_FULFILLED,
   GET_ALL_TREKI_REJECTED,
-  GET_ALL_TREKI_REQUESTED
+  GET_ALL_TREKI_REQUESTED,
+  GET_TREKI_FIREBASE_FULFILLED,
+  GET_TREKI_FIREBASE_REJECTED,
+  GET_TREKI_FIREBASE_REQUESTED
 } from './treki.actionTypes'
 
 const initialState = {
   trekiList: [],
-  loading: false,
-  error: {
+  isLoading: false,
+  isError: {
     status: false,
     message: ''
-  }
+  },
+  devices: []
 }
 
 const reducers = (state = {...initialState}, action) => {
@@ -23,12 +27,12 @@ const reducers = (state = {...initialState}, action) => {
     case GET_ALL_TREKI_REQUESTED:
       return {
         ...state,
-        loading: true
+        isLoading: true
       }
     case GET_ALL_TREKI_REJECTED:
       return {
         ...state,
-        error: {
+        isError: {
           status: true,
           message: "Error getting all treki devices"
         }

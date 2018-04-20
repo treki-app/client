@@ -31,10 +31,7 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Button
-          onPress={() => this.props.navigation.navigate('DrawerOpen')}
-          title="Hamburger"
-        />
+        <HamburgerButton navigation={ this.props.navigation} />
         <Maps/>
       </View>
     );

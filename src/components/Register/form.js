@@ -25,8 +25,8 @@ class Logo extends Component {
         placeholderTextColor="#ffffff"
         secureTextEntry={true}
         />
-        <TouchableOpacity>
-          <Text style={styles.buttonText}> Login </Text>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}> {this.props.type} </Text>
         </TouchableOpacity>
     </View>
     )
@@ -35,21 +35,32 @@ class Logo extends Component {
  
 const styles= StyleSheet.create({
   container:{
-    flex: 1,
+    flexGrow: 1,
     justifyContent:'center',
     alignItems: 'center'
   },
   inputBox:{
     width: 300,
-    backgroundColor: 'rgba(255,255,255,0.3)',
+    backgroundColor: 'rgba(255,255,255,0.2)',
     borderRadius: 20,
     paddingHorizontal:16,
+    fontSize:16,
+    color:'#ffffff',
     marginVertical: 10
+  },
+  button:{
+    width: 300,
+    backgroundColor: '#1c313a',
+    borderRadius: 20,
+    marginVertical: 10,
+    paddingVertical: 13
+
   },
   buttonText:{
     fontSize: 16,
     fontWeight: '500',
-    color: '#ffffff'
+    color: '#ffffff',
+    textAlign: 'center'
   }
 }) 
 export default Logo ;

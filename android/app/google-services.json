@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1080937578336",
+    "firebase_url": "https://gotracker-68020.firebaseio.com",
+    "project_id": "gotracker-68020",
+    "storage_bucket": "gotracker-68020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080937578336:android:2b8e223cb779284c",
+        "android_client_info": {
+          "package_name": "com.firebaseloginfacebook.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080937578336-j5uv43phai8qrkct1gtdk5dvgudalma6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq1dr8JbhfpUiGe3cvjn5I7d8hgnwhUqU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,15 +9,15 @@ import {
 import Logo from '../components/logo'
 import Form from '../components/form'
 
-class Login extends Component {
+class Signup extends Component {
   render() { 
     return ( 
       <View style={styles.container}>
         <Logo/>
-        <Form type="Login"/>
+        <Form type="Signup"/>
         <View style={styles.signupTextCont}>
-          <Text style={styles.signupText}> Don't have an Account yet ?</Text>
-          <Text style={styles.signupButton}> Signup</Text>
+          <Text style={styles.signupText}> Already have an account ?</Text>
+          <Text style={styles.signupButton}> Sign in</Text>
         </View>
       </View>
      )
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Login;
+export default Signup;

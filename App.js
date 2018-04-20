@@ -16,7 +16,7 @@ import {
   DrawerNavigator,
   SwitchNavigator
 } from 'react-navigation';
-import SignIn from './src/screens/SignIn';
+import Register from './src/screens/Register';
 import Home from './src/screens/Home';
 import AddDevice from './src/screens/AddDevice';
 import ScanDevice from './src/screens/ScanDevice';
@@ -71,12 +71,12 @@ const Drawer = DrawerNavigator(
 
 const UserAccess = StackNavigator(
   {
-    SignIn: {
-      screen: SignIn
+    Register: {
+      screen: Register
     },
   },
   {
-    initialRouteName: 'SignIn',
+    initialRouteName: 'Register',
     headerMode: 'screen',
     navigationOptions: ({ navigation }) => ({
       header: null

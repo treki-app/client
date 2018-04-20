@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { StackNavigator } from 'react-navigation';
 import Login from '../components/login'
+import SignUp from '../components/signup'
 
 class SignIn extends Component {
   render() {
@@ -17,9 +18,9 @@ class SignIn extends Component {
           backgroundColor="#1c313a"
           barStyle="light-content"
         />
-        <Login/>
+        <SignUp/>
         <Button
-          title="Sign In"
+          title="Klik sini bray buat tes bluetooth"
           onPress={()=> this.props.navigation.navigate('Home')}
         />
       </View>

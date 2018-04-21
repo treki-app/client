@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import { Circle, Marker as Mark } from 'react-native-maps';
+import { Marker as Mark } from 'react-native-maps';
 import { View, Text, StyleSheet } from 'react-native';
+import Circle from './Circle';
 
 export default class Marker extends Component {
   render() {
     return (
       <View>
         <Circle
-          center={{
-            latitude: this.props.latitude,
-            longitude: this.props.longitude
-          }}
+          latitude={ this.props.latitude }
+          longitude={ this.props.longitude }
           radius={ this.props.accuracy }
-          fillColor='rgba(242,245,101,0.5)'
+          color='device'
         />
         <Mark
           title={ this.props.title }

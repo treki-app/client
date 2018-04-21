@@ -90,7 +90,7 @@ const Drawer = DrawerNavigator(
     }
   },
   {
-    initialRouteName: 'AddDevice',
+    initialRouteName: 'Home',
     drawerPosition: 'left',
     drawerBackgroundColor: "#0098a7",
     contentOptions: {
@@ -131,7 +131,7 @@ const RootStack = SwitchNavigator(
     }
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'UserAccess',
     headerMode: 'screen',
     navigationOptions: ({ navigation }) => ({
       header: null

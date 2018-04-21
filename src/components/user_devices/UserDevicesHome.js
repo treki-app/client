@@ -13,15 +13,21 @@ import HamburgerButton from '../HamburgerButton';
 
 class UserDevicesHome extends Component {
 
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
-      user_id: `-LARdlvlVYAZd_HlbxSS`
+      user_id: ``
     }
   }
 
   componentDidMount () {
-    this.props.getUserDevices(this.state.user_id)
+    this.setState({
+      user_id: this.props.uid
+    }, () => {
+      this.props.getUserDevices(this.state.user_id)
+    })
+    // console.warn(this.state.user_id)
+    
   }
 
   renderItem = ({item}) => {
@@ -91,7 +97,8 @@ const mapStateToProps = (state) => {
   return {
     userDevices: state.devicesReducer.userDevices,
     isLoading: state.devicesReducer.isLoading,
-    isError: state.devicesReducer.isError
+    isError: state.devicesReducer.isError,
+    uid: state.userReducer.uid
   }
 }
 

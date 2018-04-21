@@ -42,7 +42,6 @@ export const LoadTreki = (callback) => {
       snapshot.forEach(e => {
         let item = e.val();
         item.id = e.key;
-        // if (item.user_id == '-LARdlvlVYAZd_HlbxSS')
         value.push(item);
       });
       dispatch(success(value));

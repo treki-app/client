@@ -21,6 +21,8 @@ import Splash from './src/screens/splashScreen'
 import Home from './src/screens/Home';
 import AddDevice from './src/screens/AddDevice';
 import ScanDevice from './src/screens/ScanDevice';
+import UserDevices from './src/screens/UserDevices';
+import UserDetailDevice from './src/screens/UserDetailDevice';
 import { Provider } from 'react-redux';
 import store from './src/store';
 
@@ -38,7 +40,7 @@ const addDeviceStack = StackNavigator(
   {
     addDevice: {
       path: '/adddevice',
-      screen: AddDevice      
+      screen: AddDevice
     },
     ScanDevice: {
       path: '/scandevice',
@@ -54,6 +56,26 @@ const addDeviceStack = StackNavigator(
   }
 )
 
+const listDeviceStack = StackNavigator(
+  {
+    listUserDevices: {
+      path:'/listdevice',
+      screen: UserDevices
+    },
+    detailDevice: {
+      path:'/detaildevice',
+      screen: UserDetailDevice
+    }
+  },
+  {
+    initialRouteName: `listUserDevices`,
+    headerMode: 'screen',
+    navigationOptions: ({ navigation }) => ({
+      header: null
+    })
+  }
+)
+
 const Drawer = DrawerNavigator(
   {
     Home: {
@@ -62,6 +84,9 @@ const Drawer = DrawerNavigator(
     },
     AddDevice: {
       screen: addDeviceStack
+    },
+    UserDevices: {
+      screen: listDeviceStack
     }
   },
   {

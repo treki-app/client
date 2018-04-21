@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Circle, Marker as Mark } from 'react-native-maps';
-import {
-  View,
-  Text
-} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 export default class Marker extends Component {
   render() {
@@ -26,12 +23,34 @@ export default class Marker extends Component {
           }}
           image={require('../../public/img/marker3.png')}
         >
-          <View style={{ alignItems: 'center', paddingHorizontal: 16 }}>
-            <Text style={{ color:'#fff', fontWeight:'bold', fontSize:12 }}>{ this.props.title }</Text>
-            <Text style={{ color:'#fff', fontSize:8 }}>{ this.props.description }</Text>
+          <View style={styles.container}>
+              <Text style={[styles.text, styles.title]}>{ this.props.title }</Text>
+              <Text style={[styles.text, styles.content]}>{ this.props.description }</Text>
           </View>
-      </Mark>
+        </Mark>
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 80,
+    height: 30,
+    paddingHorizontal: 2,
+    paddingVertical: 2
+  },
+  text: {
+    flexGrow: 1,
+    color:'#fff'
+  },
+  title: {
+    fontWeight:'bold',
+    fontSize:12
+  },
+  content: {
+    fontSize:8
+  }
+})

@@ -14,6 +14,21 @@ import HamburgerButton from '../components/HamburgerButton';
 import { loadRegisteredDevices, updateDeviceLocation, LoadTreki, GetLocation } from '../store/treki/treki.action';
 
 class Home extends Component {
+
+  static navigationOptions = {
+    drawerLabel: 'Home',
+    drawerIcon: ({tintColor}) => {
+      return (
+        <MaterialIcons
+          name="track-changes"
+          size={24}
+          style={{color: tintColor}}
+        >
+        </MaterialIcons>
+      );
+    }
+  }
+  
   constructor () {
     super()
     this.manager = new BleManager()

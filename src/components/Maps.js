@@ -50,8 +50,8 @@ class Maps extends Component {
         <MapView
           style={styles.map}
           region={{
-            latitudeDelta: 0.00675,
-            longitudeDelta: 0.00675,
+            latitudeDelta: 0.003375,
+            longitudeDelta: 0.003375,
             latitude: this.state.midPoint.latitude,
             longitude: this.state.midPoint.longitude
           }}

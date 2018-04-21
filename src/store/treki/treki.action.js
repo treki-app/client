@@ -53,6 +53,7 @@ export const LoadTreki = (callback) => {
 }
 
 export const loadRegisteredDevices = () => {
+  console.warn('Load Register Triggered !')
   return (dispatch,getState) => {
     dispatch(loading());
     let getDevices = getState().treki.devices
@@ -81,5 +82,18 @@ export const saveNewDevice = (payload) => {
       .catch((err) => {
         console.warn(err)
       })
+  }
+}
+
+export const updateDeviceLocation = (payload) => {
+  return (dispatch) => {
+    console.warn('Masuk updateDeviceLocation')
+    axios({
+      method: `PUT`,
+      url: `http://treki.fadhilmch.com/treki/device_id/${payload.id}`,
+      data: {
+        location: payload.location
+      }
+    })
   }
 }

@@ -40,7 +40,6 @@ class BluetoothScan extends Component {
   keyExtractor = (item, index) => `device-${index}`
 
   scanAndConnect = () => {
-    console.log(`Masuk sini !!!`)
     const subscription = this.manager.onStateChange((state) => {
       if (state === 'PoweredOn') {
         this.manager.startDeviceScan(null, null , (error, device) => {
@@ -76,7 +75,6 @@ class BluetoothScan extends Component {
             title={`Scan Device`}
           />
         </View>
-
         <FlatList 
           contentContainerStyle = { style.flatList }
           data = { this.state.arrAvailable }

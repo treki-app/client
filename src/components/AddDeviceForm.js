@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { saveNewDevice } from '../store/treki/treki.action'
+import { saveNewDevice, GetLocation } from '../store/treki/treki.action'
 
 class AddDeviceForm extends Component {
   constructor (props) {
@@ -28,53 +28,18 @@ class AddDeviceForm extends Component {
         }
       },
       error: null,
-      position: null,
     }
   }
 
-  getLocation = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          'title': 'Treki Location Permission',
-          'message': `Just wanna know your location`
-        }
-      )
-
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            console.log(position)
-            this.setState({
-              ...this.state,
-              newDevice: {
-                ...this.state.newDevice,
-                device_id: this.props.deviceId,
-                location: {
-                  accuracy: position.coords.accuracy,
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                }
-              },
-              error: null,
-              position
-            });
-          },
-          (error) => this.setState({ error: error.message })
-        );
-      } else {
-        ToastAndroid.show("Location permission denied", ToastAndroid.SHORT)
-      }
-
-    } catch(err) {
-      ToastAndroid.show(`ERROR : ${err}`, ToastAndroid.SHORT)
-    }
-  }
-
-  componentDidMount () {
-    this.getLocation()
-  }
+  componentDidMount = () => this.props.GetLocation(location => this.setState({
+    ...this.state,
+    newDevice: {
+      ...this.state.newDevice,
+      device_id: this.props.deviceId,
+      location
+    },
+  }));
+  
 
   addDevice () {
     const theNewDevice = this.state.newDevice
@@ -98,7 +63,6 @@ class AddDeviceForm extends Component {
           - Accuracy : ${this.state.newDevice.location.accuracy}
           - Latitude : ${this.state.newDevice.location.latitude} ,
           - Longitude : ${this.state.newDevice.location.longitude},
-          - Position : ${this.state.position},
           - Error : ${this.state.error}, 
           `}
         </Text>
@@ -136,7 +100,8 @@ class AddDeviceForm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  saveNewDevice
+  saveNewDevice,
+  GetLocation
 }, dispatch)
 
 export default connect(null, mapDispatchToProps)(AddDeviceForm);

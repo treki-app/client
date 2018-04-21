@@ -20,7 +20,7 @@ class AddDeviceForm extends Component {
         name: ``,
         device_id: ``,
         image_url: ``,
-        user_id: `-LARdlvlVYAZd_HlbxSS`,
+        user_id: this.props.uid,
         location: {
           accuracy: null,
           latitude: null,
@@ -40,12 +40,13 @@ class AddDeviceForm extends Component {
     },
   }));
   
-
   addDevice () {
+    const { navigation } = this.props
     const theNewDevice = this.state.newDevice
     this.props.saveNewDevice(theNewDevice)
       .then(() => {
         ToastAndroid.show('Your Device Has Been Added', ToastAndroid.SHORT)
+        navigation.navigate('Home')
       })
       .catch((err) => {
         console.warn(err)
@@ -63,7 +64,8 @@ class AddDeviceForm extends Component {
           - Accuracy : ${this.state.newDevice.location.accuracy}
           - Latitude : ${this.state.newDevice.location.latitude} ,
           - Longitude : ${this.state.newDevice.location.longitude},
-          - Error : ${this.state.error}, 
+          - Error : ${this.state.error},
+          - UserId : ${this.state.newDevice.user_id}
           `}
         </Text>
         <TextInput
@@ -99,9 +101,15 @@ class AddDeviceForm extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    uid: state.userReducer.uid
+  }
+}
+
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   saveNewDevice,
   GetLocation
 }, dispatch)
 
-export default connect(null, mapDispatchToProps)(AddDeviceForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AddDeviceForm);

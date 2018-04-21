@@ -22,8 +22,7 @@ class AddDevice extends Component {
   render() {
     return (
       <View>
-        {/* <HamburgerButton navigation={this.props.navigation}/> */}
-        <AddDeviceForm deviceId={this.props.navigation.state.params.deviceId}/>
+        <AddDeviceForm deviceId={this.props.navigation.state.params.deviceId} navigation={this.props.navigation}/>
       </View>
     );
   }

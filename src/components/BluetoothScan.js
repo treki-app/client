@@ -89,7 +89,7 @@ class BluetoothScan extends Component {
         <Text style={style.text}>Scanning...</Text>
         </View>
         : null}
-
+        
         <FlatList 
           contentContainerStyle = { style.flatList }
           data = { this.state.arrAvailable }

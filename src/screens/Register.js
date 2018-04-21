@@ -17,7 +17,7 @@ class Register extends Component {
           backgroundColor="#1c313a"
           barStyle="light-content"
         />
-        <Routes/>
+        <Routes navigation={ this.props.navigation }/>
         <Button
           title="Klik sini bray buat tes bluetooth"
           onPress={()=> this.props.navigation.navigate('Home')}

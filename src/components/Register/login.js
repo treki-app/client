@@ -21,7 +21,7 @@ class Login extends Component {
       <View style={styles.container}>
         <Logo/>
         <Text style={styles.Text}> Sign in below to track your devices </Text>
-        <Form type="Login"/>
+        <Form type="Login" navigation={this.props.navigation}/>
         <View style={styles.signupTextCont}>
           <Text style={styles.signupText}> Don't have an Account yet ?</Text>
           <Text onPress={this.signup} style={styles.signupButton}> Signup</Text>

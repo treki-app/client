@@ -3,6 +3,7 @@ import { View, StyleSheet, Button } from 'react-native';
 import MapView from 'react-native-maps';
 import moment from 'moment';
 import Marker from './Marker';
+import Circle from './Circle';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -22,8 +23,6 @@ class Maps extends Component {
       longitude: 0
     }
   }
-
-  onPress = () => console.warn('Clicked')
 
   render() {
     return (
@@ -48,8 +47,14 @@ class Maps extends Component {
               description={moment(marker.updatedAt).fromNow()}
             />)) 
           }
+          <MapView.Marker
+            coordinate={{
+              latitude: this.props.latitude,
+              longitude: this.props.longitude
+            }}
+            image={require('../../public/img/pin-point.png')}
+          />
         </MapView>
-        <Button title='find me!' onPress={this.onPress}/>
       </View>
     )
   }

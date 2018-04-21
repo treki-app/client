@@ -35,7 +35,6 @@ const successLoadRegistered = (payload) => {
 }
 
 export const LoadTreki = (callback) => {
-  console.warn('Load Device Triggered !')
   return dispatch => {
     dispatch(loading());
     database.ref(`/treki`).on('value', snapshot => {
@@ -55,11 +54,9 @@ export const LoadTreki = (callback) => {
 }
 
 export const loadRegisteredDevices = () => {
-  console.warn('Load Register Triggered !')
   return (dispatch, getState) => {
     dispatch(loading());
     let getDevices = getState().treki.devices
-    console.warn(getState())
     let registeredDevices = getDevices.map((val) => {
       return val.device_id
     })
@@ -90,7 +87,6 @@ export const GetLocation = (callback) => {
 
 export const saveNewDevice = (payload) => {
   return (dispatch) => {
-    console.warn('Masuk save new device')
     return axios({
       method: `POST`,
       url: `http://treki.fadhilmch.com/treki`,
@@ -102,14 +98,12 @@ export const saveNewDevice = (payload) => {
 
       })
       .catch((err) => {
-        console.warn(err)
       })
   }
 }
 
 export const updateDeviceLocation = (payload) => {
   return (dispatch) => {
-    console.warn('Masuk updateDeviceLocation')
     axios({
       method: `PUT`,
       url: `http://treki.fadhilmch.com/treki/device_id/${payload.id}`,

@@ -39,7 +39,6 @@ class Home extends Component {
   componentDidMount () {
     this.props.loadRegisteredDevices()
     BackgroundTimer.setInterval(this.scanAndConnect, 10000)
-    // setInterval(this.scanAndConnect,5000)
   }
 
 
@@ -95,7 +94,6 @@ class Home extends Component {
             const checkRegisteredDevices = this.props.registeredDevices.indexOf(device.id)
             if ( checkRegisteredDevices !== -1) {
               this.getLocation(device.id)
-              // console.warn(JSON.stringify(this.state.location))
               this.manager.stopDeviceScan();
             }
           }        

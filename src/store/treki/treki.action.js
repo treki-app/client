@@ -6,6 +6,7 @@ import {
 } from './treki.actionType';
 import { database } from '../firebase';
 import axios from 'axios';
+import { ToastAndroid, PermissionsAndroid } from 'react-native';
 
 const loading = () => {
   return {
@@ -34,6 +35,7 @@ const successLoadRegistered = (payload) => {
 }
 
 export const LoadTreki = (callback) => {
+  console.warn('Load Device Triggered !')
   return dispatch => {
     dispatch(loading());
     database.ref(`/treki`).on('value', snapshot => {
@@ -54,15 +56,35 @@ export const LoadTreki = (callback) => {
 
 export const loadRegisteredDevices = () => {
   console.warn('Load Register Triggered !')
-  return (dispatch,getState) => {
+  return (dispatch, getState) => {
     dispatch(loading());
     let getDevices = getState().treki.devices
-
+    console.warn(getState())
     let registeredDevices = getDevices.map((val) => {
       return val.device_id
     })
 
     dispatch(successLoadRegistered(registeredDevices))
+  }
+}
+
+export const GetLocation = (callback) => {
+  return async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          'title': 'Treki Location Permission',
+          'message': `Just wanna know your location`
+        }
+      )
+
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        navigator.geolocation.getCurrentPosition(location => callback({ ...location.coords }, null), error => callback(null, error))
+      } else ToastAndroid.show("Location permission denied", ToastAndroid.SHORT);
+    } catch (err) {
+      
+    }
   }
 }
 

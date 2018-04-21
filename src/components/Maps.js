@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Button } from 'react-native';
 import MapView from 'react-native-maps';
 import moment from 'moment';
 import Marker from './Marker';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import { LoadTreki } from '../store/treki/treki.action';
 
 const MapStateToProps = (state) => {
   return {
@@ -17,8 +15,6 @@ const MapStateToProps = (state) => {
   }
 }
 
-const MapDispatchToProps = (dispatch) => bindActionCreators({ LoadTreki }, dispatch)
-
 class Maps extends Component {
   state = {
     midPoint: {
@@ -27,22 +23,7 @@ class Maps extends Component {
     }
   }
 
-  componentWillMount = async () => {
-    await this.props.LoadTreki(this.setCoordinate);
-  }
-
-  setCoordinate = () => {
-    let sumCoordinate = { latitude: 0, longitude: 0 };
-    this.props.devices.forEach(element => {
-      sumCoordinate.latitude += element.location.latitude;
-      sumCoordinate.longitude += element.location.longitude;
-    });
-    let newMidPoint = {
-      latitude : sumCoordinate.latitude / this.props.devices.length,
-      longitude : sumCoordinate.longitude / this.props.devices.length
-    }
-    this.setState({ midPoint: newMidPoint })
-  }
+  onPress = () => console.warn('Clicked')
 
   render() {
     return (
@@ -52,8 +33,8 @@ class Maps extends Component {
           region={{
             latitudeDelta: 0.003375,
             longitudeDelta: 0.003375,
-            latitude: this.state.midPoint.latitude,
-            longitude: this.state.midPoint.longitude
+            latitude: this.props.latitude,
+            longitude: this.props.longitude
           }}
         >
           {
@@ -68,6 +49,7 @@ class Maps extends Component {
             />)) 
           }
         </MapView>
+        <Button title='find me!' onPress={this.onPress}/>
       </View>
     )
   }
@@ -84,4 +66,4 @@ const styles = StyleSheet.create({
   map: { ...StyleSheet.absoluteFillObject }
 });
 
-export default connect(MapStateToProps, MapDispatchToProps)(Maps)
+export default connect(MapStateToProps, null)(Maps)

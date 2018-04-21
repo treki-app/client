@@ -3,7 +3,7 @@ import {SIGNIN_USER,SIGNUP_USER} from './user.types'
 const initialState = {
   email: '',
   password: '',
-  status: ''
+  uid: ''
 }
 
 const reducers =(state=initialState , action)=> {
@@ -12,13 +12,13 @@ const reducers =(state=initialState , action)=> {
       return {
         ...state,
         email : action.payload.email,
-        password: action.payload.password
+        uid   : action.payload.id
       }
     case SIGNUP_USER: 
       return{
         ...state,
         email: action.payload.email,
-        password: action.payload.password
+        uid  : action.payload.id 
       }
     default:
       return state     

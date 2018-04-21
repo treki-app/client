@@ -9,24 +9,48 @@ import {
   TouchableOpacity,
   Text
 } from 'react-native'
+import { connect } from 'react-redux'; 
+import { bindActionCreators } from 'redux';
+import {login,signUp} from '../../store/user/user.action'
 
-class Logo extends Component {
+class Form extends Component {
+  gotoFirebase(email,password){
+    const { navigation } = this.props
+    if(this.props.type === 'Login'){
+      this.props.login(email,password)
+        .then(() => {
+          // console.warn(JSON.stringify(this.props.store.email), JSON.stringify(this.props.store.uid))
+          if (this.props.store.email && this.props.store.uid) {
+            navigation.navigate('Home')
+          }
+        })
+        .catch((err) => {
+          console.warn(err)
+        })
+    }else{
+      this.props.signUp(email,password)
+    }
+  } 
+
   render() { 
     return (  
     <View style={styles.container}>
-      <TextInput style={styles.inputBox} 
+      <TextInput style={styles.inputBox}
         underlineColorAndroid='rgba(0,0,0,0)'
         placeholder="Email"
         placeholderTextColor="#ffffff"
+        onChangeText={email => this.props.store.email = email }
         />
       <TextInput style={styles.inputBox} 
         underlineColorAndroid='rgba(0,0,0,0)'
         placeholder="Password"
         placeholderTextColor="#ffffff"
         secureTextEntry={true}
+        onChangeText={password => this.props.store.password = password }
         />
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}> {this.props.type} </Text>
+          <Text onPress={()=> {this.gotoFirebase(this.props.store.email, this.props.store.password)}}  
+                style={styles.buttonText}> {this.props.type} </Text>
         </TouchableOpacity>
     </View>
     )
@@ -63,4 +87,16 @@ const styles= StyleSheet.create({
     textAlign: 'center'
   }
 }) 
-export default Logo ;
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  login,
+  signUp
+},dispatch)
+
+const mapStateToProps = (state) => {
+  return {
+    store : state.userReducer
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

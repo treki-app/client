@@ -14,6 +14,7 @@ import HamburgerButton from '../components/HamburgerButton';
 class ScanDevice extends Component {
 
   static navigationOptions = {
+    header: null,
     drawerLabel: 'Add Device',
     drawerIcon: ({tintColor}) => {
       return (

@@ -3,7 +3,10 @@ import {
   StyleSheet,
   View,
   Button,
-  ToastAndroid
+  ToastAndroid,
+  TouchableHighlight,
+  Text,
+  Image
 } from 'react-native'
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -25,11 +28,21 @@ class AvailableDevice extends Component {
     return (
       <View style={ style.flatListItem }>
         <View style={ style.flatListButton }>
-          <Button
-            title={this.props.item}
-            color="#ff6600"
+          <TouchableHighlight style={{borderRadius: 10}}onPress={ () => { this.checkRegisteredDevice(this.props.item) }}>
+            <View style={style.button}>
+              <Image style={style.image} source={ require('../treki_logo_background_white.png')} />
+              <View>
+                <Text style={style.titleText}>{"Treki Device"}</Text>
+                <Text style={style.textButton}>{"Device ID "}</Text>
+                <Text style={style.textButton}>{this.props.item}</Text>
+              </View>
+            </View>
+          </TouchableHighlight>
+          {/* <Button
+            title={"Device ID: "+ this.props.item}
+            color="white"
             onPress={ () => { this.checkRegisteredDevice(this.props.item) }}
-          />
+          /> */}
         </View>
       </View>
     );
@@ -42,7 +55,30 @@ const style = StyleSheet.create({
   },
   flatListButton: {
     paddingTop: 25,
-    width: 200
+    // width: 200
+  },
+  button: {
+    backgroundColor: '#0098a7',
+    flexDirection: 'row',
+    borderRadius: 10,
+    paddingVertical: 10,
+    justifyContent: 'center',
+    paddingHorizontal: 20
+  },
+  textButton: {
+    color: 'white'
+  },
+  image: {
+    width: 60,
+    height: 70,
+    // marginVertical: 5,
+    // marginHorizontal: 5,
+    marginRight: 20,
+  },
+  titleText: {
+    fontSize: 24,
+    fontWeight: '300',
+    color: 'white'
   }
 })
 

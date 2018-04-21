@@ -48,9 +48,9 @@ const addDeviceStack = StackNavigator(
   {
     initialRouteName: `ScanDevice`,
     headerMode: 'screen',
-    navigationOptions: ({ navigation }) => ({
-      header: null
-    })
+    // navigationOptions: ({ navigation }) => ({
+    //   header: null
+    // })
   }
 )
 
@@ -65,8 +65,16 @@ const Drawer = DrawerNavigator(
     }
   },
   {
-    initialRouteName: 'Home',
-    drawerPosition: 'left'
+    initialRouteName: 'AddDevice',
+    drawerPosition: 'left',
+    drawerBackgroundColor: "#0098a7",
+    contentOptions: {
+      // activeBackgroundColor: "#02cee5",
+      activeBackgroundColor: "white",
+      // activeTintColor: "#00363a",
+      activeTintColor: "#006971",
+      inactiveTintColor: "white"
+    }
   }
 )
 
@@ -98,7 +106,7 @@ const RootStack = SwitchNavigator(
     }
   },
   {
-    initialRouteName: 'UserAccess',
+    initialRouteName: 'Home',
     headerMode: 'screen',
     navigationOptions: ({ navigation }) => ({
       header: null

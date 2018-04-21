@@ -64,7 +64,7 @@ class AddDeviceForm extends Component {
           (error) => this.setState({ error: error.message })
         );
       } else {
-        ToastAndroid.show("Camera permission denied", ToastAndroid.SHORT)
+        ToastAndroid.show("Location permission denied", ToastAndroid.SHORT)
       }
 
     } catch(err) {

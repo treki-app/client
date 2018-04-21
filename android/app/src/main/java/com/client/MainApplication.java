@@ -3,6 +3,8 @@ package com.client;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.ocetnik.timer.BackgroundTimerPackage;
+import com.jamesisaac.rnbackgroundtask.BackgroundTaskPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import com.magus.fblogin.FacebookLoginPackage;
@@ -28,6 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new BackgroundTimerPackage(),
+            new BackgroundTaskPackage(),
           new VectorIconsPackage(),
           new RNFirebasePackage(),
           new FacebookLoginPackage(),
@@ -51,5 +55,6 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    BackgroundTaskPackage.useContext(this);
   }
 }

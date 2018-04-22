@@ -23,6 +23,7 @@ import AddDevice from './src/screens/AddDevice';
 import ScanDevice from './src/screens/ScanDevice';
 import UserDevices from './src/screens/UserDevices';
 import UserDetailDevice from './src/screens/UserDetailDevice';
+import Logout from './src/screens/Logout';
 import { Provider } from 'react-redux';
 import store from './src/store';
 
@@ -87,6 +88,9 @@ const Drawer = DrawerNavigator(
     },
     UserDevices: {
       screen: listDeviceStack
+    },
+    LogoutNav: {
+      screen: LogoutNav
     }
   },
   {
@@ -103,7 +107,15 @@ const Drawer = DrawerNavigator(
   }
 )
 
-const UserAccess = StackNavigator(
+const LogoutNav = SwitchNavigator(
+  {
+    Logout: {
+      screen: Logout
+    }
+  }
+)
+
+const UserAccess = SwitchNavigator(
   {
     Splash: {
       screen: Splash

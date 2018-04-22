@@ -1,5 +1,5 @@
 import {SIGNIN_USER,SIGNUP_USER} from './user.types'
-import {auth} from '../firebase'
+import {auth, database} from '../firebase'
 
 
 export const login = (email,password) => {
@@ -38,7 +38,11 @@ export const signUp = (email,password) => {
   }
 }
 
-
+export const updateTokenDevice = (uid, tokenDevice) => {
+  return dispatch => {
+    database.ref(`token/${uid}`).set({ tokenDevice })
+  }
+}
 
 const loginData = (payload) => {
   return{

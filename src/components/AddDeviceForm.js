@@ -6,11 +6,15 @@ import {
   Button,
   TextInput,
   PermissionsAndroid,
-  ToastAndroid
+  ToastAndroid,
+  PixelRatio,
+  Image,
+  TouchableOpacity
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { saveNewDevice, GetLocation } from '../store/treki/treki.action'
+import ImagePicker from 'react-native-image-picker'
 
 class AddDeviceForm extends Component {
   constructor (props) {
@@ -28,6 +32,7 @@ class AddDeviceForm extends Component {
         }
       },
       error: null,
+      avatarSource: null,
     }
   }
 
@@ -51,6 +56,51 @@ class AddDeviceForm extends Component {
       .catch((err) => {
         console.warn(err)
       })
+  }
+
+  takePic(){
+    const options = {
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      console.warn('Response = ', response);
+
+      if (response.didCancel) {
+        console.warn('User cancelled photo picker');
+      }
+      else if (response.error) {
+        console.warn('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.warn('User tapped custom button: ', response.customButton);
+      }
+      else {
+        let source = { uri: response.uri };
+        this.setState({
+          avatarSource: source
+        });
+      }
+    });
+  }
+
+  camera(){
+    const options = {
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+    ImagePicker.launchCamera(options, (response)  => {
+      console.warn(response)
+    });
   }
 
   render() {
@@ -92,6 +142,13 @@ class AddDeviceForm extends Component {
           placeholder={`Some Image URL...`}
           underlineColorAndroid={"green"}
         />
+        <TouchableOpacity onPress={this.takePic.bind(this)}>
+          <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+          { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
+            <Image style={styles.avatar} source={this.state.avatarSource} />
+          }
+          </View>
+        </TouchableOpacity>
         <Button 
           title={"Add Device"}
           onPress={() => { this.addDevice() }}
@@ -100,6 +157,20 @@ class AddDeviceForm extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  avatar:{
+    borderRadius: 75,
+    width: 150,
+    height: 150
+  },
+  avatarContainer: {
+    borderColor: '#9B9B9B',
+    borderWidth: 1 / PixelRatio.get(),
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+}) 
 
 const mapStateToProps = (state) => {
   return {

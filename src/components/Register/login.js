@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
   },
   Text:{
     fontSize: 16,
-    color: 'rgba(255,255,255, 0.7)'
+    color: 'rgba(255,255,255, 0.7)',
+    marginTop: 20
   }
 })
 

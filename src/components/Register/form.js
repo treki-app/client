@@ -24,9 +24,6 @@ class Form extends Component {
             navigation.navigate('Home')
           }
         })
-        .catch((err) => {
-          console.warn(err)
-        })
     }else{
       this.props.signUp(email,password)
     }
@@ -35,7 +32,7 @@ class Form extends Component {
   render() { 
     return (  
     <View style={styles.container}>
-      <TextInput style={styles.inputBox}
+      <TextInput style={styles.inputBoxtop}
         underlineColorAndroid='rgba(0,0,0,0)'
         placeholder="Email"
         placeholderTextColor="#ffffff"
@@ -62,6 +59,15 @@ const styles= StyleSheet.create({
     flexGrow: 1,
     justifyContent:'center',
     alignItems: 'center'
+  },
+  inputBoxtop:{
+    width: 300,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 20,
+    paddingHorizontal:16,
+    fontSize:16,
+    color:'#ffffff',
+    marginBottom: 5
   },
   inputBox:{
     width: 300,

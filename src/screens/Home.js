@@ -61,7 +61,7 @@ class Home extends Component {
       if (state === 'PoweredOn') {
         this.manager.startDeviceScan(null, null , (error, device) => {
           if (error) {
-            console.warn(error, 'error')
+            // console.warn(error, 'error')
             return
           }
           

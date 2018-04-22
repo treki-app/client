@@ -3,7 +3,8 @@ import {
   View,
   Text,
   FlatList,
-  StyleSheet
+  StyleSheet,
+  Image
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -22,7 +23,8 @@ class UserDevicesHome extends Component {
 
   componentDidMount () {
     this.setState({
-      user_id: this.props.uid
+      // user_id: this.props.uid
+      user_id: '7iQwnq2sYAYu1hv3DjDL11M5Wkp1'
     }, () => {
       this.props.getUserDevices(this.state.user_id)
     })
@@ -41,10 +43,9 @@ class UserDevicesHome extends Component {
   render() {
     if ( this.props.isLoading ) {
       return (
-        <View>
-          <Text>
-            Lagi Loading...
-          </Text>
+        <View style={style.imageContainer}>
+          <Image style={style.image} source={ require('../../treki_logo_only.png')} />
+          <Text style={style.text}>Loading...</Text>
         </View>
       )
     } else if ( this.props.isError ) {
@@ -57,8 +58,11 @@ class UserDevicesHome extends Component {
       )
     } else {
       return (
-        <View>
+        <View style={{ backgroundColor: '#006971', height: '100%'}}>
           <HamburgerButton navigation={this.props.navigation}/>
+          <View style={style.titleWrapper}>
+            <Text style={style.title}>     Your Devices     </Text>
+          </View>
           <FlatList 
             contentContainerStyle = { style.flatList }
             data = { this.props.userDevices }
@@ -90,6 +94,36 @@ const style = StyleSheet.create({
   },
   flatLoading: {
     marginTop: 200
+  },
+  title: {
+    marginTop: 20,
+    fontWeight: "600",
+    fontSize: 30,
+    // color: '#006971',
+    color: 'white',
+    marginBottom: 10,
+    borderBottomWidth: 3,
+    paddingBottom: 10,
+    // borderBottomColor: '#006971'
+    borderBottomColor: 'white'
+  },
+  titleWrapper: {
+    alignItems: 'center',
+    // backgroundColor: '#006971'
+  },
+  image: {
+    width: 80,
+    height: 103,
+  },
+  imageContainer: {
+    marginTop: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    color:"#0098a7",
+    fontSize: 24,
+    fontWeight: '300',
   }
 })
 

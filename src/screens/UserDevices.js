@@ -12,6 +12,7 @@ class UserDevices extends Component {
 
   static navigationOptions = {
     drawerLabel: 'My Devices',
+    header: null,
     drawerIcon: ({tintColor}) => {
       return (
         <MaterialIcons

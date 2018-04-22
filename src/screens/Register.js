@@ -7,10 +7,18 @@ import {
   StatusBar
 } from 'react-native'
 import { StackNavigator } from 'react-navigation';
-import Routes from '../components/Register/RouteRegister'
+import Routes from '../components/Register/RouteRegister';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { OnStateChange } from '../store/user/user.action'
 
 class Register extends Component {
+
+  componentWillMount = () => this.props.OnStateChange();
+
   render() {
+    if (this.props.isLoggedIn) this.props.navigation.navigate('Home');
     return (
       <View style={style.container}>
         <StatusBar
@@ -20,7 +28,7 @@ class Register extends Component {
         <Routes navigation={ this.props.navigation }/>
         <Button
           title="Klik sini bray buat tes bluetooth"
-          onPress={()=> this.props.navigation.navigate('Home')}
+          onPress={() => this.props.navigation.navigate('Home')}
         />
       </View>
     );
@@ -33,4 +41,14 @@ const style = StyleSheet.create({
   }
 })
 
-export default Register;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.userReducer.uid ? true : false
+  }
+}
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  OnStateChange
+}, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

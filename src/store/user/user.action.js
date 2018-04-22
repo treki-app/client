@@ -1,4 +1,4 @@
-import {SIGNIN_USER,SIGNUP_USER} from './user.types'
+import {SIGNIN_USER,SIGNUP_USER,SIGNOUT_USER} from './user.types'
 import {auth, database} from '../firebase'
 
 
@@ -38,9 +38,30 @@ export const signUp = (email,password) => {
   }
 }
 
+export const SignOut = (callback) => {
+  return dispatch => {
+    auth.signOut()
+        .then(() => {
+          dispatch(logoutData())
+          callback();
+        })
+        .catch(err => console.warn('LogOut Failed', err))
+  }
+}
+
 export const updateTokenDevice = (uid, tokenDevice) => {
   return dispatch => {
     database.ref(`token/${uid}`).set({ tokenDevice })
+  }
+}
+
+export const OnStateChange = () => {
+  return dispatch => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        dispatch(loginData({id: user.uid, email: user.email}))
+      }
+    });
   }
 }
 
@@ -52,6 +73,10 @@ const loginData = (payload) => {
       email: payload.email
     }
   }
+}
+
+const logoutData = () => {
+  return { type: SIGNOUT_USER, }
 }
 
 const signUpData = (payload) => {

@@ -71,9 +71,6 @@ const listDeviceStack = StackNavigator(
   {
     initialRouteName: `listUserDevices`,
     headerMode: 'screen',
-    navigationOptions: ({ navigation }) => ({
-      header: null
-    })
   }
 )
 
@@ -103,7 +100,7 @@ const Drawer = DrawerNavigator(
     }
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'UserDevices',
     drawerPosition: 'left',
     drawerBackgroundColor: "#0098a7",
     contentOptions: {
@@ -144,7 +141,7 @@ const RootStack = SwitchNavigator(
     }
   },
   {
-    initialRouteName: 'UserAccess',
+    initialRouteName: 'Home',
     headerMode: 'screen',
     navigationOptions: ({ navigation }) => ({
       header: null

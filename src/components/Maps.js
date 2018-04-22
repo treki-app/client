@@ -13,6 +13,7 @@ const MapStateToProps = (state) => {
     isLoading: state.treki.isLoading,
     isError: state.treki.isError,
     devices: state.treki.devices,
+    uid: state.userReducer.uid
   }
 }
 
@@ -37,7 +38,7 @@ class Maps extends Component {
           }}
         >
           {
-            this.props.devices.map(marker => (
+            this.props.devices.filter(device => device.user_id == this.props.uid).map(marker => (
             <Marker
               key={marker.createdAt}
               latitude={marker.location.latitude}

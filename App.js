@@ -77,6 +77,15 @@ const listDeviceStack = StackNavigator(
   }
 )
 
+
+const LogoutNav = SwitchNavigator(
+  {
+    Logout: {
+      screen: Logout
+    }
+  }
+)
+
 const Drawer = DrawerNavigator(
   {
     Home: {
@@ -89,7 +98,7 @@ const Drawer = DrawerNavigator(
     UserDevices: {
       screen: listDeviceStack
     },
-    LogoutNav: {
+    Logout: {
       screen: LogoutNav
     }
   },
@@ -103,14 +112,6 @@ const Drawer = DrawerNavigator(
       // activeTintColor: "#00363a",
       activeTintColor: "#006971",
       inactiveTintColor: "white"
-    }
-  }
-)
-
-const LogoutNav = SwitchNavigator(
-  {
-    Logout: {
-      screen: Logout
     }
   }
 )

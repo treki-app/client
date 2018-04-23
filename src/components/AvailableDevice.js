@@ -28,7 +28,10 @@ class AvailableDevice extends Component {
     return (
       <View style={ style.flatListItem }>
         <View style={ style.flatListButton }>
-          <TouchableHighlight style={{borderRadius: 10}}onPress={ () => { this.checkRegisteredDevice(this.props.item) }}>
+          <TouchableHighlight 
+            style={{borderRadius: 10}}
+            onPress={ () => { this.checkRegisteredDevice(this.props.item) }}
+            underlayColor="rgba(255,255,255,0.2)">
             <View style={style.button}>
               <Image style={style.image} source={ require('../treki_logo_background_white.png')} />
               <View>

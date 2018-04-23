@@ -5,7 +5,8 @@ import {
   ToastAndroid,
   Image,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Switch
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -19,6 +20,13 @@ class UserDetailDevice extends Component {
     headerTitle: <View style={{flexGrow: 1}}><Image style={{ alignSelf: 'center', height: 45, width: 120}} source={require('../treki_logo_inline_white.png')}/></View>,
     headerRight: <Text></Text>,
     headerTintColor: 'white'
+  }
+
+  constructor () {
+    super()
+    this.state = {
+      notif: false
+    }
   }
 
   componentDidMount () {
@@ -41,6 +49,8 @@ class UserDetailDevice extends Component {
         <View style={style.wrapperDetail}>
           <Text style={style.textDetail}>Handphone</Text>
         </View>
+        <Text style={style.textTitle}>Notification</Text>
+        <Switch onValueChange={(value) => this.setState({notif: value})} value={ this.state.notif } onTintColor='#00afc4' thumbTintColor='white'/>
         <Text style={style.textTitle}>Location</Text>
       </View>
       </ScrollView> 

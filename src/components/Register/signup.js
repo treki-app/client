@@ -20,7 +20,7 @@ class Signup extends Component {
     return ( 
       <View style={styles.container}>
         <Logo/>
-        <Text style={styles.Text}> Let's get Started by signning up for Tracki your devices </Text>
+        <Text style={styles.Text}> Let's get Started by signning up for Track your devices </Text>
         <Form type="Signup"/>
         <View style={styles.signupTextCont}>
           <Text style={styles.signupText}> Already have an account ?</Text>
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
   Text:{
     fontSize: 16,
     textAlign : 'center',
-    color: 'rgba(255,255,255, 0.7)'
+    color: 'rgba(255,255,255, 0.7)',
+    marginTop: 20
   }
 })
 

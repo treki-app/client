@@ -11,6 +11,8 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUserDetailDevice } from '../store/devices/devices.action';
+import { updateState, GetLocation } from '../store/treki/treki.action'
+import Maps from '../components/Maps';
 
 class UserDetailDevice extends Component {
   static navigationOptions = {
@@ -25,15 +27,46 @@ class UserDetailDevice extends Component {
   constructor () {
     super()
     this.state = {
-      notif: false
+      notif: false,
+      detail: {
+        device_id: '',
+        name: '',
+        location: null,
+        createdAt: null,
+        updatedAt: null,
+        state: false
+      },
+      userLocation: {
+        latitude: 0,
+        longitude: 0,
+      },
+      deviceLocation: {
+        latitude: 0,
+        longitude: 0,
+      }
     }
   }
 
-  componentDidMount () {
+  updateData () {
     const { deviceId } = this.props.navigation.state.params
-    ToastAndroid.show(`${deviceId}`, ToastAndroid.SHORT)
     this.props.getUserDetailDevice(deviceId)
+      .then((detail) => {
+        console.warn(detail.data.data)
+        this.setState({
+          detail: detail.data.data
+        }, () => {
+          this.props.GetLocation(location => this.setState({...this.state, userLocation: location}, () => {
+            let device = this.props.devices.filter(device => device.device_id == this.state.detail.device_id)
+            this.setState({...this.state, deviceLocation: {
+              latitude: device[0].location.latitude,
+              longitude: device[0].location.longitude
+            }})
+          }))
+        })
+      })
   }
+  
+  componentDidMount = () => this.updateData();
 
   render() {
     return (
@@ -43,15 +76,29 @@ class UserDetailDevice extends Component {
         <Image source={require('../treki_logo_circle.png')} style={style.image} />
         <Text style={style.textTitle}>Device ID</Text>
         <View style={style.wrapperDetail}>
-          <Text style={style.textDetail}>FE:JE:JK:34:32</Text>
+          <Text style={style.textDetail}>{this.state.detail.device_id}</Text>
         </View>
         <Text style={style.textTitle}>Name</Text>
         <View style={style.wrapperDetail}>
-          <Text style={style.textDetail}>Handphone</Text>
+          <Text style={style.textDetail}>{this.state.detail.name}</Text>
         </View>
         <Text style={style.textTitle}>Notification</Text>
-        <Switch onValueChange={(value) => this.setState({notif: value})} value={ this.state.notif } onTintColor='#00afc4' thumbTintColor='white'/>
+        <Switch onValueChange={(value) => {
+          this.props.updateState(value)
+            .then(() => {
+              console.warn("UPDATE")
+              this.updateData();
+            })
+          }} value={ this.state.detail.state } onTintColor='#00afc4' thumbTintColor='white'/>
         <Text style={style.textTitle}>Location</Text>
+        <View style={style.mapWrapper}>
+          <Maps
+            latitude={this.state.deviceLocation.latitude}
+            longitude={this.state.deviceLocation.longitude}
+            userLatitude={this.state.userLocation.latitude}
+            userLongitude={this.state.userLocation.longitude}
+            devices={this.props.devices.filter(device => device.device_id == this.state.detail.device_id)} />
+        </View>
       </View>
       </ScrollView> 
       </View>
@@ -90,12 +137,25 @@ const style = StyleSheet.create({
   textDetail: {
     padding: 10,
     fontSize: 15
+  },
+  mapWrapper: {
+    width: '90%',
+    height: 300,
+    borderRadius: 5,
+    marginTop: 5
   }
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  getUserDetailDevice
+  getUserDetailDevice,
+  updateState,
+  GetLocation,
 }, dispatch)
 
-export default connect(null, mapDispatchToProps)(UserDetailDevice);
+const mapStateToProps = (state) => ({
+  userDevices: state.devicesReducer.userDevices,
+  devices: state.treki.devices,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserDetailDevice);
 

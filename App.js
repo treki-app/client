@@ -25,6 +25,7 @@ import AddDevice from './src/screens/AddDevice';
 import ScanDevice from './src/screens/ScanDevice';
 import UserDevices from './src/screens/UserDevices';
 import UserDetailDevice from './src/screens/UserDetailDevice';
+import Measurement from './src/screens/Measurement';
 import Logout from './src/screens/Logout';
 import { Provider } from 'react-redux';
 import store from './src/store';
@@ -154,6 +155,7 @@ const RootStack = SwitchNavigator(
       screen: UserAccess
     },
     Home: {
+      // screen: Drawer
       screen: Drawer
     }
   },

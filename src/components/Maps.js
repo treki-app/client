@@ -5,18 +5,6 @@ import moment from 'moment';
 import Marker from './Marker';
 import Circle from './Circle';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-const MapStateToProps = (state) => {
-  return {
-    isLoading: state.treki.isLoading,
-    isError: state.treki.isError,
-    devices: state.treki.devices,
-    uid: state.userReducer.uid
-  }
-}
-
 class Maps extends Component {
   state = {
     midPoint: {
@@ -38,7 +26,7 @@ class Maps extends Component {
           }}
         >
           {
-            this.props.devices.filter(device => device.user_id == this.props.uid).map(marker => (
+            this.props.devices.map(marker => (
             <Marker
               key={marker.createdAt}
               latitude={marker.location.latitude}
@@ -50,8 +38,8 @@ class Maps extends Component {
           }
           <MapView.Marker
             coordinate={{
-              latitude: this.props.latitude,
-              longitude: this.props.longitude
+              latitude: this.props.userLatitude,
+              longitude: this.props.userLongitude
             }}
             image={require('../../public/img/pin-point.png')}
             style={{ zIndex: -1 }}
@@ -73,4 +61,4 @@ const styles = StyleSheet.create({
   map: { ...StyleSheet.absoluteFillObject }
 });
 
-export default connect(MapStateToProps, null)(Maps)
+export default Maps

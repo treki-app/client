@@ -101,6 +101,19 @@ export const saveNewDevice = (payload) => {
   }
 }
 
+export const updateState = (payload) => {
+  return (dispatch) => {
+    console.warn('updatestate')
+    return axios({
+      method: `PUT`,
+      url: `http://treki.fadhilmch.com/treki/${payload.id}/state`,
+      data: {
+        state: payload.state
+      }
+    })
+  }
+}
+
 export const updateDeviceLocation = (payload) => {
   return (dispatch) => {
     axios({

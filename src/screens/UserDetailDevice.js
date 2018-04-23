@@ -11,7 +11,8 @@ import {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUserDetailDevice } from '../store/devices/devices.action';
-import { updateState } from '../store/treki/treki.action'
+import { updateState, GetLocation } from '../store/treki/treki.action'
+import Maps from '../components/Maps';
 
 class UserDetailDevice extends Component {
   static navigationOptions = {
@@ -34,6 +35,14 @@ class UserDetailDevice extends Component {
         createdAt: null,
         updatedAt: null,
         state: false
+      },
+      userLocation: {
+        latitude: 0,
+        longitude: 0,
+      },
+      deviceLocation: {
+        latitude: 0,
+        longitude: 0,
       }
     }
   }
@@ -45,16 +54,19 @@ class UserDetailDevice extends Component {
         console.warn(detail.data.data)
         this.setState({
           detail: detail.data.data
+        }, () => {
+          this.props.GetLocation(location => this.setState({...this.state, userLocation: location}, () => {
+            let device = this.props.devices.filter(device => device.device_id == this.state.detail.device_id)
+            this.setState({...this.state, deviceLocation: {
+              latitude: device[0].location.latitude,
+              longitude: device[0].location.longitude
+            }})
+          }))
         })
       })
   }
   
-  componentDidMount () {
-    // console.warn("deviceID", deviceId)
-    // let detail = this.props.userDevices.filter(val => val.id === deviceId);
-    // console.warn('detail', detail)
-    this.updateData();
-  }
+  componentDidMount = () => this.updateData();
 
   render() {
     return (
@@ -79,6 +91,14 @@ class UserDetailDevice extends Component {
             })
           }} value={ this.state.detail.state } onTintColor='#00afc4' thumbTintColor='white'/>
         <Text style={style.textTitle}>Location</Text>
+        <View style={style.mapWrapper}>
+          <Maps
+            latitude={this.state.deviceLocation.latitude}
+            longitude={this.state.deviceLocation.longitude}
+            userLatitude={this.state.userLocation.latitude}
+            userLongitude={this.state.userLocation.longitude}
+            devices={this.props.devices.filter(device => device.device_id == this.state.detail.device_id)} />
+        </View>
       </View>
       </ScrollView> 
       </View>
@@ -117,16 +137,24 @@ const style = StyleSheet.create({
   textDetail: {
     padding: 10,
     fontSize: 15
+  },
+  mapWrapper: {
+    width: '90%',
+    height: 300,
+    borderRadius: 5,
+    marginTop: 5
   }
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   getUserDetailDevice,
-  updateState
+  updateState,
+  GetLocation,
 }, dispatch)
 
 const mapStateToProps = (state) => ({
   userDevices: state.devicesReducer.userDevices,
+  devices: state.treki.devices,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetailDevice);

@@ -105,7 +105,12 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <HamburgerButton navigation={ this.props.navigation} />
-        <Maps latitude={this.state.midPoint.latitude} longitude={this.state.midPoint.longitude} />
+        <Maps
+          latitude={this.state.midPoint.latitude}
+          longitude={this.state.midPoint.longitude}
+          userLatitude={this.state.midPoint.latitude}
+          userLongitude={this.state.midPoint.longitude}
+          devices={this.props.devices.filter(device => device.user_id == this.props.uid)} />
         <TouchableHighlight style={styles.button} onPress={() => {
           this.setState({isVisible: true})
         }}>  
@@ -174,6 +179,7 @@ const mapStateToProps = (state) => {
     devices: state.treki.devices,
     registeredDevices: state.treki.registeredDevices,
     userDevices: state.devicesReducer.userDevices,
+    uid: state.userReducer.uid,
   }
 }
 

@@ -12,6 +12,15 @@ import AddDevice from './AddDevice';
 import Maps from '../components/Maps';
 import HamburgerButton from '../components/HamburgerButton';
 import { loadRegisteredDevices, updateDeviceLocation, LoadTreki, GetLocation } from '../store/treki/treki.action';
+import { updateTokenDevice } from '../store/user/user.action';
+import { NotificationsAndroid } from 'react-native-notifications';
+
+const userDeviceToken = ``
+
+NotificationsAndroid.setRegistrationTokenUpdateListener((deviceToken) => {
+  console.warn('Push-notifications registered!', deviceToken)
+  userDeviceToken = deviceToken
+});
 
 class Home extends Component {
 
@@ -44,6 +53,11 @@ class Home extends Component {
 
   componentWillMount = async () => {
     await this.props.LoadTreki(this.setCoordinate);
+  }
+
+  componentDidMount () {
+    this.props.updateTokenDevice(this.props.uid, userDeviceToken)
+    // console.warn(`==> userId: ${this.props.uid}, ==> userDeviceToken ${userDeviceToken}`)
   }
 
   setCoordinate = () => {
@@ -118,6 +132,7 @@ const mapStateToProps = (state) => {
     isError: state.treki.isError,
     devices: state.treki.devices,
     registeredDevices: state.treki.registeredDevices,
+    uid: state.userReducer.uid
   }
 }
 
@@ -125,7 +140,8 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   loadRegisteredDevices,
   updateDeviceLocation,
   LoadTreki,
-  GetLocation
+  GetLocation,
+  updateTokenDevice
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

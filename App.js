@@ -158,7 +158,7 @@ const RootStack = SwitchNavigator(
     }
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'UserAccess',
     headerMode: 'screen',
     navigationOptions: ({ navigation }) => ({
       header: null

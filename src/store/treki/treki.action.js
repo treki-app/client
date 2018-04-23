@@ -86,7 +86,6 @@ export const GetLocation = (callback) => {
 
 export const saveNewDevice = (payload) => {
   return (dispatch) => {
-    console.warn(payload)
     return axios({
       method: `POST`,
       url: `http://treki.fadhilmch.com/treki/createv2`,

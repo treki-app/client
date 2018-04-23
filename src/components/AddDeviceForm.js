@@ -27,8 +27,7 @@ class AddDeviceForm extends Component {
         device_id: ``,
         image_url: ``,
         image: ``,
-        // user_id: this.props.uid,
-        user_id: `agnynurreza`,
+        user_id: this.props.uid,
         location: {
           accuracy: null,
           latitude: null,
@@ -54,13 +53,13 @@ class AddDeviceForm extends Component {
   addDevice () {
     const { navigation } = this.props
     const theNewDevice = this.state.newDevice
-    let formData = new FormData()
 
+    let formData = new FormData()
     formData.append('name', theNewDevice.name)
     formData.append('device_id', theNewDevice.device_id)
     formData.append('image', theNewDevice.image)
     formData.append('user_id', theNewDevice.user_id)
-    formData.append('location', theNewDevice.location)
+    formData.append('location', JSON.stringify(theNewDevice.location))
 
     this.props.saveNewDevice(formData)
       .then(() => {
@@ -78,21 +77,21 @@ class AddDeviceForm extends Component {
       maxWidth: 500,
       maxHeight: 500,
       storageOptions: {
-        skipBackup: true
+        skipBackup: true,
+        waitUntilSaved: true
       }
     };
 
     ImagePicker.showImagePicker(options, (response) => {
-      console.warn('Response = ', response);
-
+      // console.warn('Response = ', response);
       if (response.didCancel) {
-        console.warn('User cancelled photo picker');
+        // console.warn('User cancelled photo picker');
       }
       else if (response.error) {
-        console.warn('ImagePicker Error: ', response.error);
+        // console.warn('ImagePicker Error: ', response.error);
       }
       else if (response.customButton) {
-        console.warn('User tapped custom button: ', response.customButton);
+        // console.warn('User tapped custom button: ', response.customButton);
       }
       else {
         let source = { uri: response.uri };
@@ -116,47 +115,8 @@ class AddDeviceForm extends Component {
           }
         })
         
-        // this.uploadImage(response.uri, response.fileName)
-        //   .then((url) => {
-        //     console.warn(url)
-        //   })
-        //   .catch((err) => {
-        //     console.warn(err)
-        //   })
-
       }
     });
-  }
-
-  uploadImage (uri, fileName, mime = 'image/jpg') {
-    return new Promise ((resolve, reject) => {
-      const uploadUri = uri.replace('file://', '')
-
-      let uploadBlob = null
-
-      let storageref = storage.ref('image_asset_treki/').child(fileName)
-
-      fs.readFile(uploadUri, 'base64')
-        .then((data) => {
-          return Blob.build(data, { type: `${mime};BASE64`})
-        })
-        .then((blob) => {
-          uploadBlob = blob
-          return storageref.put(blob, { contentType: mime })
-        })
-        .then(() => {
-          uploadBlob.close()
-          window.XMLHttpRequest = originalXMLHttpRequest ;
-          return storageref.getDownloadURL()
-        })
-        .then((url) => {
-          resolve(url)
-        })
-        .catch((err) => {
-          reject(err)
-        })
-    })
-
   }
 
   render() {

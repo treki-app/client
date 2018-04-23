@@ -23,8 +23,8 @@ class UserDevicesHome extends Component {
 
   componentDidMount () {
     this.setState({
-      // user_id: this.props.uid
-      user_id: '7iQwnq2sYAYu1hv3DjDL11M5Wkp1'
+      user_id: this.props.uid
+      // user_id: '7iQwnq2sYAYu1hv3DjDL11M5Wkp1'
     }, () => {
       this.props.getUserDevices(this.state.user_id)
     })

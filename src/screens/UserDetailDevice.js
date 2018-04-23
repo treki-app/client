@@ -2,26 +2,105 @@ import React, { Component } from 'react';
 import {
   View,
   Text,
-  ToastAndroid
+  ToastAndroid,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Switch
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUserDetailDevice } from '../store/devices/devices.action';
+import { updateState, GetLocation } from '../store/treki/treki.action'
+import Maps from '../components/Maps';
 
 class UserDetailDevice extends Component {
-
-  componentDidMount () {
-    const { deviceId } = this.props.navigation.state.params
-    ToastAndroid.show(`${deviceId}`, ToastAndroid.SHORT)
-    this.props.getUserDetailDevice(deviceId)
+  static navigationOptions = {
+    headerStyle: {
+      backgroundColor: "#0098a7"
+    },
+    headerTitle: <View style={{flexGrow: 1}}><Image style={{ alignSelf: 'center', height: 45, width: 120}} source={require('../treki_logo_inline_white.png')}/></View>,
+    headerRight: <Text></Text>,
+    headerTintColor: 'white'
   }
+
+  constructor () {
+    super()
+    this.state = {
+      notif: false,
+      detail: {
+        device_id: '',
+        name: '',
+        location: null,
+        createdAt: null,
+        updatedAt: null,
+        state: false
+      },
+      userLocation: {
+        latitude: 0,
+        longitude: 0,
+      },
+      deviceLocation: {
+        latitude: 0,
+        longitude: 0,
+      }
+    }
+  }
+
+  updateData () {
+    const { deviceId } = this.props.navigation.state.params
+    this.props.getUserDetailDevice(deviceId)
+      .then((detail) => {
+        console.warn(detail.data.data)
+        this.setState({
+          detail: detail.data.data
+        }, () => {
+          this.props.GetLocation(location => this.setState({...this.state, userLocation: location}, () => {
+            let device = this.props.devices.filter(device => device.device_id == this.state.detail.device_id)
+            this.setState({...this.state, deviceLocation: {
+              latitude: device[0].location.latitude,
+              longitude: device[0].location.longitude
+            }})
+          }))
+        })
+      })
+  }
+  
+  componentDidMount = () => this.updateData();
 
   render() {
     return (
-      <View>
-        <Text>
-          {`Reserved for detail device ${this.props.navigation.state.params.deviceId}`}
-        </Text>
+      <View style={{ backgroundColor: '#006971', height: '100%'}}>
+      <ScrollView>
+      <View style={{alignItems: 'center'}}>
+        <Image source={require('../treki_logo_circle.png')} style={style.image} />
+        <Text style={style.textTitle}>Device ID</Text>
+        <View style={style.wrapperDetail}>
+          <Text style={style.textDetail}>{this.state.detail.device_id}</Text>
+        </View>
+        <Text style={style.textTitle}>Name</Text>
+        <View style={style.wrapperDetail}>
+          <Text style={style.textDetail}>{this.state.detail.name}</Text>
+        </View>
+        <Text style={style.textTitle}>Notification</Text>
+        <Switch onValueChange={(value) => {
+          this.props.updateState(value)
+            .then(() => {
+              console.warn("UPDATE")
+              this.updateData();
+            })
+          }} value={ this.state.detail.state } onTintColor='#00afc4' thumbTintColor='white'/>
+        <Text style={style.textTitle}>Location</Text>
+        <View style={style.mapWrapper}>
+          <Maps
+            latitude={this.state.deviceLocation.latitude}
+            longitude={this.state.deviceLocation.longitude}
+            userLatitude={this.state.userLocation.latitude}
+            userLongitude={this.state.userLocation.longitude}
+            devices={this.props.devices.filter(device => device.device_id == this.state.detail.device_id)} />
+        </View>
+      </View>
+      </ScrollView> 
       </View>
     );
   }
@@ -33,9 +112,50 @@ class UserDetailDevice extends Component {
 //   }
 // }
 
+const style = StyleSheet.create({
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    marginTop: 10,
+    marginBottom: 5,
+    borderWidth: 7,
+    borderColor: '#0098a7'
+  },
+  textTitle: {
+    color: 'white',
+    fontWeight: '500',
+    fontSize: 20,
+    marginTop: 10
+  },
+  wrapperDetail: {
+    backgroundColor: 'white',
+    width: '80%',
+    borderRadius: 30,
+    alignItems: 'center'
+  },
+  textDetail: {
+    padding: 10,
+    fontSize: 15
+  },
+  mapWrapper: {
+    width: '90%',
+    height: 300,
+    borderRadius: 5,
+    marginTop: 5
+  }
+})
+
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-  getUserDetailDevice
+  getUserDetailDevice,
+  updateState,
+  GetLocation,
 }, dispatch)
 
-export default connect(null, mapDispatchToProps)(UserDetailDevice);
+const mapStateToProps = (state) => ({
+  userDevices: state.devicesReducer.userDevices,
+  devices: state.treki.devices,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserDetailDevice);
 

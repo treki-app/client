@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-} from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import UserDevicesHome from '../components/user_devices/UserDevicesHome';
 
-class UserDevices extends Component {
+import { SignOut } from '../store/user/user.action';
 
+class Logout extends Component {
   static navigationOptions = {
-    drawerLabel: 'My Devices',
-    header: null,
+    drawerLabel: 'Logout',
     drawerIcon: ({tintColor}) => {
       return (
         <MaterialIcons
-          name="devices"
+          name="exit-to-app"
           size={24}
           style={{color: tintColor}}
         >
@@ -25,13 +21,21 @@ class UserDevices extends Component {
     }
   }
 
+  componentWillMount = () => {
+    this.props.SignOut(() => this.props.navigation.navigate('Register'));
+  }
+
   render() {
     return (
       <View>
-        <UserDevicesHome navigation={this.props.navigation}/>
+        <Text> Bye </Text>
       </View>
-    );
+    )
   }
 }
 
-export default UserDevices;
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  SignOut
+}, dispatch)
+
+export default connect(null, mapDispatchToProps)(Logout);

@@ -50,6 +50,7 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+      <meta-data android:name="com.wix.reactnativenotifications.gcmSenderId" android:value="131605323820\0"/>
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@ import {
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
 import moment from 'moment'
 
-class ListUserDevices extends Component {
+class ListUserDeviceHome extends Component {
 
   viewDetailDevices = (deviceId) => {
     const { navigation } = this.props
@@ -28,7 +28,7 @@ class ListUserDevices extends Component {
          underlayColor="rgba(255,255,255,0.2)">
         <View style={styles.wrapper}>
           <View>
-            <Image source={require('../../treki_logo_circle.png')} style={styles.image}/>
+            <Image source={require('../treki_logo_circle.png')} style={styles.image}/>
           </View>
           <View>
             <Text style={styles.innerTextSmall}>
@@ -91,4 +91,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default ListUserDevices;
+export default ListUserDeviceHome;

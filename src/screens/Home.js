@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, ToastAndroid, PermissionsAndroid } from 'react-native';
+import { View, Text, StyleSheet, Button, ToastAndroid, PermissionsAndroid, TouchableHighlight, Image, FlatList} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -11,7 +11,19 @@ import ScanDevice from './ScanDevice';
 import AddDevice from './AddDevice';
 import Maps from '../components/Maps';
 import HamburgerButton from '../components/HamburgerButton';
+import ListUserDeviceHome from '../components/ListUserDeviceHome';
+import Modal from "react-native-modal";
 import { loadRegisteredDevices, updateDeviceLocation, LoadTreki, GetLocation } from '../store/treki/treki.action';
+import { getUserDevices } from '../store/devices/devices.action';
+import { updateTokenDevice } from '../store/user/user.action';
+import { NotificationsAndroid } from 'react-native-notifications';
+
+const userDeviceToken = ``
+
+NotificationsAndroid.setRegistrationTokenUpdateListener((deviceToken) => {
+  console.warn('Push-notifications registered!', deviceToken)
+  userDeviceToken = deviceToken
+});
 
 class Home extends Component {
 
@@ -38,12 +50,27 @@ class Home extends Component {
         latitude: 0,
         longitude: 0,
         accuracy: 0
-      }
+      },
+      isVisible: false,
+      user_id: ''
     }
   }
 
+  renderItem = ({item}) => {
+    return (
+      <ListUserDeviceHome item={item} navigation={this.props.navigation}/>
+    )
+  }
+
+  keyExtractor = (item, index) => `userdevices-${index}`
+
   componentWillMount = async () => {
     await this.props.LoadTreki(this.setCoordinate);
+  }
+
+  componentDidMount () {
+    this.props.updateTokenDevice(this.props.uid, userDeviceToken)
+    // console.warn(`==> userId: ${this.props.uid}, ==> userDeviceToken ${userDeviceToken}`)
   }
 
   setCoordinate = () => {
@@ -81,7 +108,32 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <HamburgerButton navigation={ this.props.navigation} />
-        <Maps latitude={this.state.midPoint.latitude} longitude={this.state.midPoint.longitude} />
+        <Maps
+          latitude={this.state.midPoint.latitude}
+          longitude={this.state.midPoint.longitude}
+          userLatitude={this.state.midPoint.latitude}
+          userLongitude={this.state.midPoint.longitude}
+          devices={this.props.devices.filter(device => device.user_id == this.props.uid)} />
+        <TouchableHighlight style={styles.button} onPress={() => {
+          this.setState({isVisible: true})
+        }}>  
+        <Image style={styles.image}source={require('../treki_logo_circle.png')}/>    
+        </TouchableHighlight>
+        {/* <ModalList isVisible={this.state.isVisible} /> */}
+
+         <Modal style={styles.modalWrapper} isVisible={this.state.isVisible}>
+          <View style={styles.modal}>
+            <FlatList 
+              contentContainerStyle = { styles.flatList }
+              data = { this.props.userDevices }
+              renderItem = { this.renderItem }
+              keyExtractor = { this.keyExtractor }
+            />
+            <TouchableHighlight onPress={() => this.setState({isVisible: false})}>
+              <Text style={{backgroundColor: 'red'}}>Hide me!</Text>
+            </TouchableHighlight>
+          </View>
+        </Modal>
       </View>
     );
   }
@@ -89,6 +141,38 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
   container: { ...StyleSheet.absoluteFillObject },
+  button: {
+    position: 'absolute',
+    bottom: 60,
+    right: 40,
+    width: 63,
+    height: 63,
+    borderRadius: 31.5,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    alignItems:'center',
+    // justifyContent: 'center',
+  },
+  image: {
+    width: 60,
+    height: 60,
+    borderWidth: 5,
+    borderColor: '#0098a7',
+    borderRadius: 30
+  },
+  modal: {
+    backgroundColor: 'white',
+    borderRadius: 10,
+    width: 300,
+    height: 400
+  },
+  modalWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1
+  },
+  flatList: {
+    alignItems: 'center'
+  },
 })
 
 const mapStateToProps = (state) => {
@@ -97,6 +181,8 @@ const mapStateToProps = (state) => {
     isError: state.treki.isError,
     devices: state.treki.devices,
     registeredDevices: state.treki.registeredDevices,
+    userDevices: state.devicesReducer.userDevices,
+    uid: state.userReducer.uid,
   }
 }
 
@@ -104,7 +190,9 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   loadRegisteredDevices,
   updateDeviceLocation,
   LoadTreki,
-  GetLocation
+  GetLocation,
+  getUserDevices,
+  updateTokenDevice
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -23,8 +23,8 @@ class UserDevicesHome extends Component {
 
   componentDidMount () {
     this.setState({
-      // user_id: this.props.uid
-      user_id: '7iQwnq2sYAYu1hv3DjDL11M5Wkp1'
+      user_id: this.props.uid
+      // user_id: '7iQwnq2sYAYu1hv3DjDL11M5Wkp1'
     }, () => {
       this.props.getUserDevices(this.state.user_id)
     })
@@ -41,38 +41,27 @@ class UserDevicesHome extends Component {
   keyExtractor = (item, index) => `userdevices-${index}`
 
   render() {
-    if ( this.props.isLoading ) {
-      return (
-        <View style={style.imageContainer}>
-          <Image style={style.image} source={ require('../../treki_logo_only.png')} />
-          <Text style={style.text}>Loading...</Text>
-        </View>
-      )
-    } else if ( this.props.isError ) {
-      return (
-        <View>
-          <Text>
-            Error...
-          </Text>
-        </View>
-      )
-    } else {
       return (
         <View style={{ backgroundColor: '#006971', height: '100%'}}>
           <HamburgerButton navigation={this.props.navigation}/>
           <View style={style.titleWrapper}>
             <Text style={style.title}>     Your Devices     </Text>
           </View>
+          {this.props.isLoading? 
+          <View style={style.imageContainer}>
+            <Image style={style.image} source={ require('../../treki_logo_background_white.png')} />
+            <Text style={style.text}>Loading...</Text>
+          </View>
+          :
           <FlatList 
             contentContainerStyle = { style.flatList }
             data = { this.props.userDevices }
             renderItem = { this.renderItem }
             keyExtractor = { this.keyExtractor }
           />
+          }
         </View>
       );
-    }
-
   }
 }
 
@@ -112,16 +101,16 @@ const style = StyleSheet.create({
     // backgroundColor: '#006971'
   },
   image: {
-    width: 80,
-    height: 103,
+    width: 100,
+    height: 113,
   },
   imageContainer: {
-    marginTop: 100,
+    marginTop: 80,
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
-    color:"#0098a7",
+    color:"white",
     fontSize: 24,
     fontWeight: '300',
   }

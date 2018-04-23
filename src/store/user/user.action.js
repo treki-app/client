@@ -51,7 +51,7 @@ export const SignOut = (callback) => {
 
 export const updateTokenDevice = (uid, tokenDevice) => {
   return dispatch => {
-    database.ref(`token/${uid}`).set({ tokenDevice })
+    database.ref(`users/${uid}`).set({ tokenDevice })
   }
 }
 

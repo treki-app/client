@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, ToastAndroid, PermissionsAndroid } from 'react-native';
+import { View, Text, StyleSheet, Button, ToastAndroid, PermissionsAndroid, TouchableHighlight, Image} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -61,7 +61,7 @@ class Home extends Component {
       if (state === 'PoweredOn') {
         this.manager.startDeviceScan(null, null , (error, device) => {
           if (error) {
-            console.warn(error, 'error')
+            // console.warn(error, 'error')
             return
           }
           
@@ -82,6 +82,9 @@ class Home extends Component {
       <View style={styles.container}>
         <HamburgerButton navigation={ this.props.navigation} />
         <Maps latitude={this.state.midPoint.latitude} longitude={this.state.midPoint.longitude} />
+        <TouchableHighlight style={styles.button}>  
+        <Image style={styles.image}source={require('../treki_logo_circle.png')}/>    
+        </TouchableHighlight>
       </View>
     );
   }
@@ -89,6 +92,24 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
   container: { ...StyleSheet.absoluteFillObject },
+  button: {
+    position: 'absolute',
+    bottom: 60,
+    right: 40,
+    width: 63,
+    height: 63,
+    borderRadius: 31.5,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    alignItems:'center',
+    // justifyContent: 'center',
+  },
+  image: {
+    width: 60,
+    height: 60,
+    borderWidth: 5,
+    borderColor: '#0098a7',
+    borderRadius: 30
+  }
 })
 
 const mapStateToProps = (state) => {

@@ -14,7 +14,15 @@ import HamburgerButton from '../components/HamburgerButton';
 import ListUserDeviceHome from '../components/ListUserDeviceHome';
 import Modal from "react-native-modal";
 import { loadRegisteredDevices, updateDeviceLocation, LoadTreki, GetLocation } from '../store/treki/treki.action';
-import { getUserDevices } from '../store/devices/devices.action';
+import { updateTokenDevice } from '../store/user/user.action';
+import { NotificationsAndroid } from 'react-native-notifications';
+
+const userDeviceToken = ``
+
+NotificationsAndroid.setRegistrationTokenUpdateListener((deviceToken) => {
+  console.warn('Push-notifications registered!', deviceToken)
+  userDeviceToken = deviceToken
+});
 
 class Home extends Component {
 
@@ -60,14 +68,8 @@ class Home extends Component {
   }
 
   componentDidMount () {
-    this.setState({
-      // user_id: this.props.uid
-      user_id: '7iQwnq2sYAYu1hv3DjDL11M5Wkp1'
-    }, () => {
-      this.props.getUserDevices(this.state.user_id)
-    })
-    // console.warn(this.state.user_id)
-    
+    this.props.updateTokenDevice(this.props.uid, userDeviceToken)
+    // console.warn(`==> userId: ${this.props.uid}, ==> userDeviceToken ${userDeviceToken}`)
   }
 
   setCoordinate = () => {
@@ -173,7 +175,7 @@ const mapStateToProps = (state) => {
     isError: state.treki.isError,
     devices: state.treki.devices,
     registeredDevices: state.treki.registeredDevices,
-    userDevices: state.devicesReducer.userDevices,
+    uid: state.userReducer.uid
   }
 }
 
@@ -182,7 +184,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   updateDeviceLocation,
   LoadTreki,
   GetLocation,
-  getUserDevices
+  updateTokenDevice
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

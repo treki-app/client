@@ -25,7 +25,7 @@ class ListUserDevices extends Component {
         <TouchableHighlight
          style={styles.button}
          onPress={() => { this.viewDetailDevices(item.id) }}
-        >
+         underlayColor="rgba(255,255,255,0.2)">
         <View style={styles.wrapper}>
           <View>
             <Image source={require('../../treki_logo_circle.png')} style={styles.image}/>

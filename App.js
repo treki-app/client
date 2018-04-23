@@ -9,12 +9,14 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 import { 
   StackNavigator, 
   DrawerNavigator,
-  SwitchNavigator
+  SwitchNavigator,
+  DrawerItems
 } from 'react-navigation';
 import Register from './src/screens/Register';
 import Splash from './src/screens/splashScreen' 
@@ -34,6 +36,20 @@ export default class App extends Component {
       <Provider store={ store }><RootStack/></Provider>
     );
   }
+}
+
+
+const CustomDrawerContentComponent = (prop) => {
+  return (
+    <View style={{flex: 1}}>
+      <View style={{paddingBottom: 20, paddingTop:10, borderBottomColor: 'rgba(255, 255, 255, 0.4)', borderBottomWidth: 1, alignItems: 'center'}}>
+        <Image style={{height: 50, width: 130}} source={require('./src/treki_logo_inline_white.png')} />
+        <Text style={{fontSize: 15, fontWeight: '300', marginTop: 20, color: '#fff', alignSelf:'flex-start', paddingLeft:20}}> Account: </Text>
+        <Text style={{fontSize: 20, fontWeight: '600', marginTop: 3, color: '#fff', alignSelf:'flex-start', paddingLeft:20}}> {store.getState().userReducer.email} </Text>
+      </View>
+      <DrawerItems {...prop} />
+    </View>
+  )
 }
 
 
@@ -103,6 +119,7 @@ const Drawer = DrawerNavigator(
     initialRouteName: 'Home',
     drawerPosition: 'left',
     drawerBackgroundColor: "#0098a7",
+    contentComponent: CustomDrawerContentComponent,
     contentOptions: {
       // activeBackgroundColor: "#02cee5",
       activeBackgroundColor: "white",

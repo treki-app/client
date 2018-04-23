@@ -77,9 +77,10 @@ class BluetoothScan extends Component {
     return (
       <View style={{marginTop: 20}}>
         <View style={{alignItems: 'center'}}>
-          <TouchableHighlight style={style.scanButton}
+          <TouchableHighlight 
+            style={style.scanButton}
             onPress={ () => {this.scanAndConnect() }}
-          >
+            underlayColor="#017782">
           <Text style={style.scan}>{"SCAN DEVICES"}</Text>
           </TouchableHighlight>
         </View>

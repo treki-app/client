@@ -34,7 +34,7 @@ class UserDevicesHome extends Component {
 
   renderItem = ({item}) => {
     return (
-      <ListUserDevices item={item} navigation={this.props.navigation}/>
+      <ListUserDevices item={item} navigation={this.props.navigation} />
     )
   }
 
@@ -43,13 +43,13 @@ class UserDevicesHome extends Component {
   render() {
       return (
         <View style={{ backgroundColor: '#006971', height: '100%'}}>
-          <HamburgerButton navigation={this.props.navigation}/>
+          <HamburgerButton navigation={this.props.navigation} refreshButton={true}/>
           <View style={style.titleWrapper}>
-            <Text style={style.title}>     Your Devices     </Text>
+            <Text style={style.title}>     My Devices     </Text>
           </View>
           {this.props.isLoading? 
           <View style={style.imageContainer}>
-            <Image style={style.image} source={ require('../../treki_logo_background_white.png')} />
+            <Image style={style.image} source={ require('../../treki_logo_circle_rotate.gif')} />
             <Text style={style.text}>Loading...</Text>
           </View>
           :
@@ -87,22 +87,24 @@ const style = StyleSheet.create({
   title: {
     marginTop: 20,
     fontWeight: "600",
-    fontSize: 30,
-    // color: '#006971',
+    fontSize: 40,
     color: 'white',
     marginBottom: 10,
-    borderBottomWidth: 3,
-    paddingBottom: 10,
-    // borderBottomColor: '#006971'
-    borderBottomColor: 'white'
+    // borderBottomWidth: 3,
+    paddingTop: 10,
+    paddingBottom: 15,
+    // borderBottomColor: 'white',
+    backgroundColor: '#005159',
+    borderRadius: 30,
+    paddingHorizontal: 20
   },
   titleWrapper: {
     alignItems: 'center',
     // backgroundColor: '#006971'
   },
   image: {
-    width: 100,
-    height: 113,
+    width: 150,
+    height: 150,
   },
   imageContainer: {
     marginTop: 80,

@@ -44,6 +44,7 @@ export const getUserDevices = (id) => {
 
 export const getUserDetailDevice = (id) => {
   return (dispatch) => {
+    console.warn('detail device')
      return axios({
       method: `GET`,
       url: `http://treki.fadhilmch.com/treki/${id}`,       

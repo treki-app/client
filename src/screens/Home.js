@@ -25,6 +25,13 @@ NotificationsAndroid.setRegistrationTokenUpdateListener((deviceToken) => {
   userDeviceToken = deviceToken
 });
 
+NotificationsAndroid.setNotificationReceivedListener((notification) => {
+	console.warn("Notification received on device", notification.getData());
+});
+NotificationsAndroid.setNotificationOpenedListener((notification) => {
+	console.warn("Notification opened by device user", notification.getData());
+});
+
 class Home extends Component {
 
   static navigationOptions = {

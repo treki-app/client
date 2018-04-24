@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   Button,
-  StatusBar
+  StatusBar,
+  ScrollView
 } from 'react-native'
 import { StackNavigator } from 'react-navigation';
 import Routes from '../components/Register/RouteRegister';

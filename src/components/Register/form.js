@@ -7,7 +7,8 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
-  Text
+  Text,
+  ScrollView
 } from 'react-native'
 import { connect } from 'react-redux'; 
 import { bindActionCreators } from 'redux';

@@ -12,7 +12,7 @@ class Logo extends Component {
   render() { 
     return (  
     <View style={styles.container}>
-      <Image style={{width: 120 , height: 160, martinTop: 20}}
+      <Image style={{width: 120 , height: 160, marginTop: 20}}
              source={require('../../splashwithtext.png')}
       />
     </View>

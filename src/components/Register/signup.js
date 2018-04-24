@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   Button,
-  StatusBar
+  StatusBar,
+  ScrollView
 } from 'react-native'
 import Logo from './logo'
 import Form from './form'
@@ -19,6 +20,10 @@ class Signup extends Component {
   render() { 
     return ( 
       <View style={styles.container}>
+        <ScrollView
+          contentContainerStyle={{alignItems: 'center'}}
+          style={{width: '100%'}}
+        >
         <Logo/>
         <Text style={styles.Text}> Let's get Started by signning up for Track your devices </Text>
         <Form type="Signup"/>
@@ -26,6 +31,7 @@ class Signup extends Component {
           <Text style={styles.signupText}> Already have an account ?</Text>
           <Text onPress={this.goBack} style={styles.signupButton}> Sign in</Text>
         </View>
+        </ScrollView>
       </View>
      )
   }
@@ -58,8 +64,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign : 'center',
     color: 'rgba(255,255,255, 0.7)',
-    marginTop: 20
-  }
+    marginTop: 20,
+    marginBottom: 15
+    }
 })
 
 export default Signup;

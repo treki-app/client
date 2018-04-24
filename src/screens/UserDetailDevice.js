@@ -28,6 +28,7 @@ class UserDetailDevice extends Component {
     super()
     this.state = {
       notif: false,
+      id: '',
       detail: {
         device_id: '',
         name: '',
@@ -49,9 +50,12 @@ class UserDetailDevice extends Component {
 
   updateData () {
     const { deviceId } = this.props.navigation.state.params
+    this.setState({id: deviceId})
     this.props.getUserDetailDevice(deviceId)
       .then((detail) => {
-        console.warn(detail.data.data)
+        this.setState({
+          notif: detail.data.data.status
+        })
         this.setState({
           detail: detail.data.data
         }, () => {
@@ -84,12 +88,14 @@ class UserDetailDevice extends Component {
         </View>
         <Text style={style.textTitle}>Notification</Text>
         <Switch onValueChange={(value) => {
-          this.props.updateState(value)
+          this.setState({
+            notif: value
+          })
+          this.props.updateState({status: value, id:this.state.id})
             .then(() => {
-              console.warn("UPDATE")
               this.updateData();
             })
-          }} value={ this.state.detail.state } onTintColor='#00afc4' thumbTintColor='white'/>
+          }} value={ this.state.notif } onTintColor='#00afc4' thumbTintColor='white'/>
         <Text style={style.textTitle}>Location</Text>
         <View style={style.mapWrapper}>
           <Maps
@@ -141,8 +147,7 @@ const style = StyleSheet.create({
   mapWrapper: {
     width: '90%',
     height: 300,
-    borderRadius: 5,
-    marginTop: 5
+    marginBottom : 10,
   }
 })
 

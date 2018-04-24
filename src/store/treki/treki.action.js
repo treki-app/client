@@ -104,12 +104,12 @@ export const saveNewDevice = (payload) => {
 
 export const updateState = (payload) => {
   return (dispatch) => {
-    console.warn('updatestate')
+    // console.warn('updatestate', payload)
     return axios({
       method: `PUT`,
-      url: `http://treki.fadhilmch.com/treki/${payload.id}/state`,
+      url: `http://treki.fadhilmch.com/treki/${payload.id}/status`,
       data: {
-        state: payload.state
+        status: payload.status
       }
     })
   }

@@ -28,7 +28,7 @@ class ListUserDevices extends Component {
          underlayColor="rgba(255,255,255,0.2)">
         <View style={styles.wrapper}>
           <View>
-            <Image source={require('../../treki_logo_circle.png')} style={styles.image}/>
+            <Image source={(item.image_url)?{uri:item.image_url}:require('../../treki_logo_circle.png')} style={styles.image}/>
           </View>
           <View>
             <Text style={styles.innerTextSmall}>
@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
     width: 300,
     color: 'white',
     borderRadius: 50,
+    borderColor: '#005159',
+    borderWidth: 5
   },
   innerText: {
     color: 'white',
@@ -81,9 +83,11 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 70,
-    // borderRadius: 50,
+    borderRadius: 35,
     width: 70,
-    marginRight: 20
+    marginRight: 20,
+    borderColor: '#006971',
+    borderWidth: 4
   },
   wrapper: {
     flexDirection: 'row'

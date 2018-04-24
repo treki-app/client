@@ -35,7 +35,8 @@ class UserDetailDevice extends Component {
         location: null,
         createdAt: null,
         updatedAt: null,
-        state: false
+        state: false,
+        image_url: null
       },
       userLocation: {
         latitude: 0,
@@ -61,6 +62,7 @@ class UserDetailDevice extends Component {
         }, () => {
           this.props.GetLocation(location => this.setState({...this.state, userLocation: location}, () => {
             let device = this.props.devices.filter(device => device.device_id == this.state.detail.device_id)
+            console.warn(device)
             this.setState({...this.state, deviceLocation: {
               latitude: device[0].location.latitude,
               longitude: device[0].location.longitude
@@ -77,17 +79,18 @@ class UserDetailDevice extends Component {
       <View style={{ backgroundColor: '#006971', height: '100%'}}>
       <ScrollView>
       <View style={{alignItems: 'center'}}>
-        <Image source={require('../treki_logo_circle.png')} style={style.image} />
-        <Text style={style.textTitle}>Device ID</Text>
+        <Text style={style.textTitle2}>Device ID</Text>
         <View style={style.wrapperDetail}>
-          <Text style={style.textDetail}>{this.state.detail.device_id}</Text>
+          <Text style={style.textDetail2}>{this.state.detail.device_id}</Text>
         </View>
-        <Text style={style.textTitle}>Name</Text>
-        <View style={style.wrapperDetail}>
+        <Image source={(this.state.detail.image_url)?{uri:this.state.detail.image_url}:require('../treki_logo_circle.png')} style={style.image} />
+        {/* <Text style={style.textTitle}>Name</Text> */}
+        <View style={style.wrapperDetail2}>
           <Text style={style.textDetail}>{this.state.detail.name}</Text>
         </View>
         <Text style={style.textTitle}>Notification</Text>
-        <Switch onValueChange={(value) => {
+        <Switch style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }], marginTop: 10}}
+        onValueChange={(value) => {
           this.setState({
             notif: value
           })
@@ -120,34 +123,70 @@ class UserDetailDevice extends Component {
 
 const style = StyleSheet.create({
   image: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    marginTop: 10,
-    marginBottom: 5,
+    width: 250,
+    height: 250,
+    borderRadius: 125,
+    marginTop: 5,
+    // marginBottom: 5,
     borderWidth: 7,
-    borderColor: '#0098a7'
+    borderColor: '#0098a7',
+    zIndex: 2
+  },
+  textTitle2: {
+    color: 'white',
+    fontWeight: '500',
+    fontSize: 15,
+    marginTop: 10,
+    marginBottom: 0,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 15,
+    backgroundColor: '#004e54'
   },
   textTitle: {
     color: 'white',
     fontWeight: '500',
     fontSize: 20,
-    marginTop: 10
+    marginTop: 20,
+    marginBottom: 0,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 20,
+    backgroundColor: '#004e54'
   },
   wrapperDetail: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
+    // borderTopColor: 'white',
+    // borderTopWidth: 1,
+    marginTop: 0,
     width: '80%',
-    borderRadius: 30,
     alignItems: 'center'
+  },
+  wrapperDetail2: {
+    backgroundColor: '#0098a7',
+    width: '60%',
+    borderRadius: 30,
+    alignItems: 'center',
+    marginTop: -10
   },
   textDetail: {
     padding: 10,
-    fontSize: 15
+    fontSize: 30,
+    fontFamily: 'Roboto',
+    fontWeight: '600',
+    color: 'white'
+  },
+  textDetail2: {
+    paddingBottom: 10,
+    fontSize: 30,
+    fontFamily: 'Roboto',
+    fontWeight: '600',
+    color: 'white'
   },
   mapWrapper: {
     width: '90%',
     height: 300,
-    marginBottom : 10,
+    marginBottom : 30,
   }
 })
 

@@ -9,7 +9,9 @@ import {
   ToastAndroid,
   PixelRatio,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView,
+  TouchableHighlight
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -121,20 +123,23 @@ class AddDeviceForm extends Component {
 
   render() {
     return (
-      <View>
-        <Text>
-          {` Hellow ${this.state.newDevice.device_id}`}
+      <View style={styles.wrapper}>
+        <ScrollView style={{width: '100%'}} contentContainerStyle={{alignItems:'center'}}>
+        <TouchableOpacity onPress={this.takePic.bind(this)} activeOpacity={0.7}>
+          <View style={styles.avatarContainer}>
+          { this.state.avatarSource === null ? 
+          <Text style={styles.text}>Select a Photo</Text> 
+          :
+          <Image style={styles.avatar} source={this.state.avatarSource} />
+          }
+          </View>
+        </TouchableOpacity>
+        <Text style={styles.title} >
+          {`Device ID`}
         </Text>
-        <Text>
-          {` 
-          - Accuracy : ${this.state.newDevice.location.accuracy}
-          - Latitude : ${this.state.newDevice.location.latitude} ,
-          - Longitude : ${this.state.newDevice.location.longitude},
-          - Error : ${this.state.error},
-          - UserId : ${this.state.newDevice.user_id}
-          `}
-        </Text>
-        <TextInput
+        <Text style={styles.input2}>{this.state.newDevice.device_id}</Text>
+        <Text style={styles.title} >Device Name</Text>
+        <TextInput style={styles.input}
           onChangeText={(name) => this.setState({
             ...this.state,
             newDevice: {
@@ -144,31 +149,16 @@ class AddDeviceForm extends Component {
           })}
           value={this.state.name}
           placeholder={`Your Stuff Name..`}
-          underlineColorAndroid={"green"}
         />
-        <TextInput
-          onChangeText={(image_url) => this.setState({
-            ...this.state,
-            newDevice: {
-              ...this.state.newDevice,
-              image_url: image_url
-            }
-          })}
-          value={this.state.image_url}
-          placeholder={`Some Image URL...`}
-          underlineColorAndroid={"green"}
-        />
-        <TouchableOpacity onPress={this.takePic.bind(this)}>
-          <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
-          { this.state.avatarSource === null ? <Text>Select a Photo</Text> :
-            <Image style={styles.avatar} source={this.state.avatarSource} />
-          }
-          </View>
-        </TouchableOpacity>
-        <Button 
-          title={"Add Device"}
+   
+        <TouchableHighlight 
+          style={styles.button}
           onPress={() => { this.addDevice() }}
-        />
+          underlayColor="rgba(0,0,0,0.2)"
+        >
+        <Text style={styles.buttonText}>Add Device</Text>
+        </TouchableHighlight>
+      </ScrollView>
       </View>
     );
   }
@@ -176,16 +166,78 @@ class AddDeviceForm extends Component {
 
 const styles = StyleSheet.create({
   avatar:{
-    borderRadius: 75,
-    width: 150,
-    height: 150
+    borderRadius: 100,
+    width: 200,
+    height: 200,
+    borderColor: '#0098a7',
+    borderWidth: 10,
   },
   avatarContainer: {
-    borderColor: '#9B9B9B',
-    borderWidth: 1 / PixelRatio.get(),
+    borderColor: '#0098a7',
+    borderWidth: 10,
+    marginTop: 40,
+    backgroundColor: 'white',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 100,
+    width: 200,
+    height: 200,
+    marginBottom: 20
   },
+  wrapper: {
+    alignItems: 'center',
+    backgroundColor: '#006971',
+    height: '100%'
+  },
+  text: {
+    fontFamily: 'Roboto',
+    fontSize: 25,
+    fontWeight: '600',
+    color: '#006971'
+  },
+  input: {
+    width: '80%',
+    backgroundColor: 'white',
+    borderRadius: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    color: "rgba(0,0,0,0.7)",
+    textAlign: 'center'
+  },
+  input2: {
+    width: '80%',
+    backgroundColor: 'white',
+    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    color: "rgba(0,0,0,0.4)",
+    textAlign: 'center'
+  },
+  title: {
+    color: 'white',
+    fontFamily: 'Roboto',
+    fontSize: 20,
+    fontWeight: '600', 
+    marginBottom: 5
+  },
+  button: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    width: '80%',
+    backgroundColor: '#0098a7',
+    marginTop: 10,
+    marginBottom: 20,
+    alignItems: 'center',
+    borderRadius: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontFamily: 'Roboto',
+    fontSize: 30,
+    fontWeight: '600', 
+  }
 }) 
 
 const mapStateToProps = (state) => {

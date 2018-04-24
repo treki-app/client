@@ -1,3 +1,9 @@
 export const SIGNIN_USER = 'SIGNIN_USER'
+export const LOADING_SIGNIN = 'LOADING_SIGNIN'
+export const ERROR_SIGNIN = 'ERROR_SIGNIN' 
+
 export const SIGNUP_USER= 'SIGNUP_USER'
+export const LOADING_SIGNUP = 'LOADING_SIGNUP'
+export const ERROR_SIGNUP = 'ERROR_SIGNUP'
+
 export const SIGNOUT_USER = 'SIGNOUT_USER'

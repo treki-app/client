@@ -30,28 +30,37 @@ class Form extends Component {
     }
   } 
 
-  render() { 
-    return (  
-    <View style={styles.container}>
-      <TextInput style={styles.inputBoxtop}
-        underlineColorAndroid='rgba(0,0,0,0)'
-        placeholder="Email"
-        placeholderTextColor="#ffffff"
-        onChangeText={email => this.props.store.email = email }
-        />
-      <TextInput style={styles.inputBox} 
-        underlineColorAndroid='rgba(0,0,0,0)'
-        placeholder="Password"
-        placeholderTextColor="#ffffff"
-        secureTextEntry={true}
-        onChangeText={password => this.props.store.password = password }
-        />
-        <TouchableOpacity style={styles.button}>
-          <Text onPress={()=> {this.gotoFirebase(this.props.store.email, this.props.store.password)}}  
-                style={styles.buttonText}> {this.props.type} </Text>
-        </TouchableOpacity>
-    </View>
-    )
+  render() {
+    // if(this.props.store.isLoadingSignIn || this.props.store.isLoadingSignUp) {
+    //   return(
+    //     <View>
+    //       <Text> loading....</Text>
+    //     </View>
+    //   )
+    // } else {
+
+      return (  
+      <View style={styles.container}>
+        <TextInput style={styles.inputBoxtop}
+          underlineColorAndroid='rgba(0,0,0,0)'
+          placeholder="Email"
+          placeholderTextColor="#ffffff"
+          onChangeText={email => this.props.store.email = email }
+          />
+        <TextInput style={styles.inputBox} 
+          underlineColorAndroid='rgba(0,0,0,0)'
+          placeholder="Password"
+          placeholderTextColor="#ffffff"
+          secureTextEntry={true}
+          onChangeText={password => this.props.store.password = password }
+          />
+          <TouchableOpacity style={styles.button}>
+            <Text onPress={()=> {this.gotoFirebase(this.props.store.email, this.props.store.password)}}  
+                  style={styles.buttonText}> {this.props.type} </Text>
+          </TouchableOpacity>
+      </View>
+      )
+    // }
   }
 }
  
@@ -97,7 +106,7 @@ const styles= StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   login,
-  signUp
+  signUp,
 },dispatch)
 
 const mapStateToProps = (state) => {

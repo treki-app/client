@@ -6,7 +6,8 @@ import {
   Image,
   StyleSheet,
   ScrollView,
-  Switch
+  Switch,
+  TouchableHighlight
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -84,7 +85,6 @@ class UserDetailDevice extends Component {
           <Text style={style.textDetail2}>{this.state.detail.device_id}</Text>
         </View>
         <Image source={(this.state.detail.image_url)?{uri:this.state.detail.image_url}:require('../treki_logo_circle.png')} style={style.image} />
-        {/* <Text style={style.textTitle}>Name</Text> */}
         <View style={style.wrapperDetail2}>
           <Text style={style.textDetail}>{this.state.detail.name}</Text>
         </View>
@@ -100,6 +100,20 @@ class UserDetailDevice extends Component {
             })
           }} value={ this.state.notif } onTintColor='#00afc4' thumbTintColor='white'/>
         <Text style={style.textTitle}>Location</Text>
+        <TouchableHighlight
+          style = { style.button }
+          onPress = { () => {
+            this.props.navigation.navigate('measurementDevice' , {
+              deviceId: this.state.detail.device_id,
+              deviceName: this.state.detail.name
+            })
+          }}
+        >
+            <Text>
+              Device Distance
+            </Text>
+        </TouchableHighlight>
+
         <View style={style.mapWrapper}>
           <Maps
             latitude={this.state.deviceLocation.latitude}
@@ -187,7 +201,12 @@ const style = StyleSheet.create({
     width: '90%',
     height: 300,
     marginBottom : 30,
-  }
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10
+  },
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

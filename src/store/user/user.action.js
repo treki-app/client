@@ -1,9 +1,18 @@
-import {SIGNIN_USER,SIGNUP_USER,SIGNOUT_USER} from './user.types'
+import {
+  SIGNIN_USER,
+  LOADING_SIGNIN,
+  ERROR_SIGNIN,
+  SIGNUP_USER,
+  LOADING_SIGNUP,
+  ERROR_SIGNUP,
+  SIGNOUT_USER
+  } from './user.types'
 import {auth, database} from '../firebase'
 
 
 export const login = (email,password) => {
   return dispatch => {
+    dispatch(loadingSignIn())
     return auth.signInWithEmailAndPassword(email,password)
       .then(res =>{
         let successObject = {
@@ -12,6 +21,7 @@ export const login = (email,password) => {
         }
         dispatch(loginData(successObject))
       }).catch(err => {
+        dispatch(errorSignIn())
         alert(`${err.message}`)
       })
   }
@@ -19,6 +29,7 @@ export const login = (email,password) => {
 
 export const signUp = (email,password) => {
   return dispatch => {
+    dispatch(loadingSignUp())
     if(password.length < 6 ){
       alert('please enter at least 6 charachter')
       return
@@ -32,6 +43,7 @@ export const signUp = (email,password) => {
       alert('Sign Up Success !')
       // alert(JSON.stringify(res))
     }).catch( err => {
+      dispatch(errorSignUp())
       alert(`${err.message}`)
       return
     })
@@ -65,6 +77,7 @@ export const OnStateChange = () => {
   }
 }
 
+//signin
 const loginData = (payload) => {
   return{
     type: SIGNIN_USER,
@@ -75,10 +88,19 @@ const loginData = (payload) => {
   }
 }
 
-const logoutData = () => {
-  return { type: SIGNOUT_USER, }
+const loadingSignIn = ()=> {
+  return{
+    type: LOADING_SIGNIN
+  }
 }
 
+const errorSignIn = ()=> {
+  return{
+    type: ERROR_SIGNIN
+  }
+}
+
+//signup
 const signUpData = (payload) => {
   return{
     type: SIGNUP_USER,
@@ -87,4 +109,21 @@ const signUpData = (payload) => {
       email: payload.email
     }
   }
+}
+
+const loadingSignUp = ()=> {
+  return{
+    type: LOADING_SIGNUP
+  }
+}
+
+const errorSignUp = ()=> {
+  return{
+    type: ERROR_SIGNUP
+  }
+}
+
+//signout
+const logoutData = () => {
+  return { type: SIGNOUT_USER, }
 }

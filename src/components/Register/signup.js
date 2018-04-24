@@ -5,8 +5,9 @@ import {
   StyleSheet,
   Button,
   StatusBar,
-  ScrollView
-} from 'react-native'
+  ScrollView,
+  ProgressBarAndroid
+  } from 'react-native'
 import Logo from './logo'
 import Form from './form'
 import {Actions} from 'react-native-router-flux'
@@ -17,7 +18,18 @@ class Signup extends Component {
     Actions.pop()
 
   }
-  render() { 
+  render() {
+    if(this.props.store.isLoadingSignIn || this.props.store.isLoadingSignUp) {
+      return(
+        <View style={styles.containerr}>
+          <Logo/>
+          <Text style={styles.TextLoading}>
+            Taking to
+          </Text>
+          <ProgressBarAndroid/>
+        </View>
+      )
+    }else { 
     return ( 
       <View style={styles.container}>
         <ScrollView
@@ -34,6 +46,7 @@ class Signup extends Component {
         </ScrollView>
       </View>
      )
+    }
   }
 }
  

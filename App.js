@@ -83,6 +83,10 @@ const listDeviceStack = StackNavigator(
     detailDevice: {
       path:'/detaildevice',
       screen: UserDetailDevice
+    },
+    measurementDevice: {
+      path: '/measurement',
+      screen: Measurement
     }
   },
   {

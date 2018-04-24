@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 import { saveNewDevice, GetLocation } from '../store/treki/treki.action'
 import ImagePicker from 'react-native-image-picker'
 import {storage} from '../../src/store/firebase';
+import * as Animatable from 'react-native-animatable';
 
 class AddDeviceForm extends Component {
   constructor (props) {
@@ -34,7 +35,8 @@ class AddDeviceForm extends Component {
           accuracy: null,
           latitude: null,
           longitude: null,
-        }
+        },
+        isUploading: false
       },
       error: null,
       avatarSource: null,
@@ -53,6 +55,7 @@ class AddDeviceForm extends Component {
   }
   
   addDevice () {
+    this.setState({isUploading: true})
     const { navigation } = this.props
     const theNewDevice = this.state.newDevice
 
@@ -66,6 +69,7 @@ class AddDeviceForm extends Component {
     this.props.saveNewDevice(formData)
       .then(() => {
         ToastAndroid.show('Your Device Has Been Added', ToastAndroid.SHORT)
+        this.setState({isUploading: false})
         navigation.navigate('Home')
       })
       .catch((err) => {
@@ -122,6 +126,18 @@ class AddDeviceForm extends Component {
   }
 
   render() {
+    if(this.state.isUploading)
+      return (
+        <View style={styles.wrapper2}>
+          <Animatable.View style={styles.loadingWrapper} animation="pulse" easing="ease-out" iterationCount="infinite">
+            <Image style={styles.loadingImage} source={require('../upload.gif')} />
+          </Animatable.View>
+          <Animatable.Image style={styles.uploading} source={require('../uploading.gif')} animation="pulse" easing="ease-in" iterationCount="infinite"/>
+            {/* <Text style={[styles.loadingText,{marginTop:20}]}>Registering</Text>
+            <Text style={styles.loadingText}>treki device...</Text> */}
+        </View>
+      )
+    else
     return (
       <View style={styles.wrapper}>
         <ScrollView style={{width: '100%'}} contentContainerStyle={{alignItems:'center'}}>
@@ -149,6 +165,7 @@ class AddDeviceForm extends Component {
           })}
           value={this.state.name}
           placeholder={`Your Stuff Name..`}
+          underlineColorAndroid='rgba(0,0,0,0)'
         />
    
         <TouchableHighlight 
@@ -185,6 +202,11 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   wrapper: {
+    alignItems: 'center',
+    backgroundColor: '#006971',
+    height: '100%'
+  },
+  wrapper2: {
     alignItems: 'center',
     backgroundColor: '#006971',
     height: '100%'
@@ -237,6 +259,31 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto',
     fontSize: 30,
     fontWeight: '600', 
+  },
+  loadingImage: {
+    width: 150,
+    height: 150,
+    marginTop: '25%'
+  },
+  loadingWrapper: {
+    width: 170,
+    height: 170,
+    borderRadius: 85,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '20%'
+  },
+  loadingText: {
+    color:"white",
+    fontSize: 25,
+    fontWeight: '600',
+    fontFamily: 'Roboto',
+  },
+  uploading: {
+    width: 150,
+    height: 45,
+    marginTop: 20
   }
 }) 
 

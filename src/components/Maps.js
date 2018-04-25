@@ -26,15 +26,46 @@ class Maps extends Component {
           }}
         >
           {
-            this.props.devices.map(marker => (
-            <Marker
-              key={marker.createdAt}
-              latitude={marker.location.latitude}
-              longitude={marker.location.longitude}
-              accuracy={marker.location.accuracy}
-              title={marker.name}
-              description={moment(marker.updatedAt).fromNow()}
-            />)) 
+            this.props.devices.map((marker,i) => {
+              if(this.props.home){
+                if(marker.devices.length === 1){
+                  return (
+                    <Marker
+                      key={`MarkerTreki-${i}`}
+                      latitude={marker.devices[0].location.latitude}
+                      longitude={marker.devices[0].location.longitude}
+                      accuracy={marker.devices[0].location.accuracy}
+                      title={marker.devices[0].name}
+                      description={moment(marker.devices[0].updatedAt).fromNow()}
+                      modalActive={() => this.props.modalActive(marker.location)}
+                    />
+                  )
+                } else {
+                  return (
+                    <Marker
+                    key={`MarkerTreki-${i}`}
+                    latitude={marker.location.latitude}
+                    longitude={marker.location.longitude}
+                    accuracy={marker.location.accuracy}
+                    title={marker.devices.length + " devices"}
+                    description={" here "}
+                    modalActive={() => this.props.modalActive(marker.location)}
+                  />
+                  )
+                }
+              } else {
+                  return (
+                  <Marker
+                    key={marker.createdAt}
+                    latitude={marker.location.latitude}
+                    longitude={marker.location.longitude}
+                    accuracy={marker.location.accuracy}
+                    title={marker.name}
+                    description={moment(marker.updatedAt).fromNow()}
+                  />)
+              }
+
+            }) 
           }
           <MapView.Marker
             coordinate={{

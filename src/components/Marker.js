@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Marker as Mark } from 'react-native-maps';
+import { Marker as Mark, Callout } from 'react-native-maps';
 import { View, Text, StyleSheet } from 'react-native';
 import Circle from './Circle';
 
@@ -21,11 +21,13 @@ export default class Marker extends Component {
             longitude: this.props.longitude
           }}
           image={require('../../public/img/marker3.png')}
+          onPress={() => this.props.modalActive()}
         >
           <View style={styles.container}>
               <Text style={[styles.text, styles.title]}>{ this.props.title }</Text>
               <Text style={[styles.text, styles.content]}>{ this.props.description }</Text>
           </View>
+          <Callout tooltip={false} />
         </Mark>
       </View>
     )

@@ -46,8 +46,11 @@ class UserDevicesHome extends Component {
           </View>
           {this.props.isLoading? 
           <View style={style.imageContainer}>
-            <Image style={style.image} source={ require('../../treki_logo_circle_rotate.gif')} />
-            <Text style={style.text}>Loading...</Text>
+            <Image style={style.image} source={ require('../../treki_logo_circle.png')} />
+            {/* <Text style={style.text}>Loading...</Text> */}
+            <View>
+              <Image style={style.loading} source={ require('../../Loading.gif')} />
+            </View>
           </View>
           :
           <FlatList 
@@ -102,6 +105,7 @@ const style = StyleSheet.create({
   image: {
     width: 150,
     height: 150,
+    marginBottom: 20
   },
   imageContainer: {
     marginTop: 80,
@@ -112,6 +116,11 @@ const style = StyleSheet.create({
     color:"white",
     fontSize: 24,
     fontWeight: '300',
+  },
+  loading: {
+    width: 150,
+    height: 45,
+    marginLeft: 40
   }
 })
 

@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Image } from 'react-native';
 import { BleManager } from 'react-native-ble-plx';
 import { StackNavigator } from 'react-navigation';
+import * as Animatable from 'react-native-animatable';
 
 export default class componentName extends Component {
+  static navigationOptions = {
+    headerStyle: {
+      backgroundColor: "#0098a7"
+    },
+    headerTitle: <View style={{flexGrow: 1}}><Image style={{ alignSelf: 'center', height: 45, width: 120}} source={require('../treki_logo_inline_white.png')}/></View>,
+    headerRight: <Text></Text>,
+    headerTintColor: 'white'
+  }
   
   constructor (props) {
     super (props)
@@ -12,7 +21,7 @@ export default class componentName extends Component {
     this.state = {
       distance: ``,
       device_id: deviceId,
-      message: `Loading`,
+      message: `Looking for your device`,
       checkFound: false
     }
   }
@@ -21,11 +30,11 @@ export default class componentName extends Component {
     this.scanAndConnect()
     setTimeout(() => {
       this.checkDeviceFound()
-    }, 5000)
+    }, 8000)
   }
 
   checkDeviceFound () {
-    console.warn(`Checking Device...`)
+    // console.warn(`Checking Device...`)
     if (this.state.distance) {
       this.setState({
         checkFound: true
@@ -75,6 +84,7 @@ export default class componentName extends Component {
           }
           
           if (device) {            
+            // console.warn(JSON.stringify(device.id))
             if ( device.id === this.state.device_id ) {
               console.warn('Terdeteksi')
               this.calculateDistance(device.rssi)
@@ -83,6 +93,10 @@ export default class componentName extends Component {
 
           subscription.remove();
         });
+        // this.manager.readRSSIForDevice({deviceIdentifier: this.state.device_id})
+        //   .then(device => {
+        //     // console.warn(device)
+        //   })
       }
     }, true);
   }
@@ -94,20 +108,22 @@ export default class componentName extends Component {
   render() {
     const { deviceName } = this.props.navigation.state.params
     return (
-      <View style={style.outer}>
-        <View style={style.outer2}>
-          <View style={style.outer3}>
-            <View style={style.outer4}>
-              <Text style={style.title}> { deviceName }  </Text>
-              { this.state.checkFound
-                ? <Text style={style.distance}> { `${this.state.distance} m` }</Text>
-                : <Text style={style.distance}> { this.state.message }</Text> 
-              }
-              
-            </View>
-          </View>
+      <View style={style.outer} >
+        <Animatable.View style={style.outer2} animation="pulse" easing="ease-out-sine" iterationCount="infinite" delay={60}>
+          <Animatable.View style={style.outer3} animation="pulse" easing="ease-out-sine" iterationCount="infinite" delay={30}>
+            <Animatable.View style={style.outer4} animation="pulse" easing="ease-out-sine" iterationCount="infinite">
+            </Animatable.View>
+          </Animatable.View>
+        </Animatable.View>
+        <View style={{alignItems: 'center', justifyContent: 'center', position: 'absolute', flex:1}}>
+          <Text style={style.title}> { deviceName }  </Text>
+          { this.state.checkFound
+            ? <Animatable.Text style={style.distance} animation="pulse" easing="ease-out" > { `${this.state.distance} m` }</Animatable.Text>
+            : <Text style={style.distance2}> { this.state.message }</Text> 
+          }
         </View>
       </View>
+              
     )
   }
 }
@@ -148,12 +164,21 @@ const style = StyleSheet.create({
     fontSize: 40,
     borderBottomWidth: 3,
     borderBottomColor: 'white',
-    paddingBottom: 7
+    paddingBottom: 7,
   },
   distance: {
     color: 'white',
     fontSize: 70,
     fontWeight: '600',
-    paddingTop: 7
+    paddingTop: 7,
+  },
+  distance2: {
+    flexWrap: 'wrap',
+    color: 'white',
+    fontSize: 30,
+    fontWeight: '400',
+    paddingTop: 7,
+    width: 250,
+    textAlign: 'center'
   }
 })

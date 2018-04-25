@@ -14,6 +14,7 @@ import { bindActionCreators } from 'redux';
 import { getUserDetailDevice } from '../store/devices/devices.action';
 import { updateState, GetLocation } from '../store/treki/treki.action'
 import Maps from '../components/Maps';
+import * as Animatable from 'react-native-animatable';
 
 class UserDetailDevice extends Component {
   static navigationOptions = {
@@ -88,6 +89,21 @@ class UserDetailDevice extends Component {
         <View style={style.wrapperDetail2}>
           <Text style={style.textDetail}>{this.state.detail.name}</Text>
         </View>
+        <Animatable.View style={style.buttonWrapper} animation="pulse" easing="ease-out-sine" iterationCount={2} delay={500}>
+        <TouchableHighlight
+          style = { style.button }
+          onPress = { () => {
+            this.props.navigation.navigate('measurementDevice' , {
+              deviceId: this.state.detail.device_id,
+              deviceName: this.state.detail.name
+            })
+          }}
+        >
+            <Text style={style.finder}>
+              Near Finder
+            </Text>
+        </TouchableHighlight>
+        </Animatable.View>
         <Text style={style.textTitle}>Notification</Text>
         <Switch style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }], marginTop: 10}}
         onValueChange={(value) => {
@@ -100,19 +116,6 @@ class UserDetailDevice extends Component {
             })
           }} value={ this.state.notif } onTintColor='#00afc4' thumbTintColor='white'/>
         <Text style={style.textTitle}>Location</Text>
-        <TouchableHighlight
-          style = { style.button }
-          onPress = { () => {
-            this.props.navigation.navigate('measurementDevice' , {
-              deviceId: this.state.detail.device_id,
-              deviceName: this.state.detail.name
-            })
-          }}
-        >
-            <Text>
-              Device Distance
-            </Text>
-        </TouchableHighlight>
 
         <View style={style.mapWrapper}>
           <Maps
@@ -202,11 +205,27 @@ const style = StyleSheet.create({
     height: 300,
     marginBottom : 30,
   },
+  buttonWrapper: {
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 0,
+    borderRadius: 30,
+    paddingBottom: 5,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
   button: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 10
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 30,
+    backgroundColor: 'white',
   },
+  finder: {
+    color: '#004e54',
+    fontWeight: '500',
+    fontSize: 30,
+    fontFamily: 'Roboto'
+  }
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({

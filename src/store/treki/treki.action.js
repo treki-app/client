@@ -44,6 +44,30 @@ export const LoadTreki = (callback) => {
         item.id = e.key;
         value.push(item);
       });
+          
+      // let arr = []
+
+      // value.forEach(val => {
+      //   let tempObj = {}
+      //   let location = arr.filter(arrVal => {
+      //     return (val.location.latitude === arrVal.location.latitude)&&(val.location.longitude === arrVal.location.longitude)
+      //   })
+      //   // console.log("location "+location + " " + location.length)
+      //   if(location.length === 0){
+      //     tempObj.location = (val.location)
+      //     tempObj.devices = []
+      //     tempObj.devices.push(val)
+      //     arr.push(tempObj)
+      //   } else {
+      //     let index = arr.indexOf(location[0])
+      //     arr[index].devices.push(val)
+      //   }
+      // })
+      // arr.forEach((val, i) => {
+      //   console.warn('Locat '+i+' '+JSON.stringify(val))
+      // })
+      // console.warn("LOCATIONSSS", arr.map(val=> val.devices.length))
+
       dispatch(success(value));
       callback();
     }, error => {

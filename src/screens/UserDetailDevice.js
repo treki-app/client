@@ -7,23 +7,46 @@ import {
   StyleSheet,
   ScrollView,
   Switch,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableOpacity
 } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUserDetailDevice } from '../store/devices/devices.action';
-import { updateState, GetLocation } from '../store/treki/treki.action'
+import { updateState, GetLocation, deleteDevice } from '../store/treki/treki.action'
 import Maps from '../components/Maps';
 import * as Animatable from 'react-native-animatable';
 
 class UserDetailDevice extends Component {
-  static navigationOptions = {
+  static navigationOptions = ({navigation}) => ({
     headerStyle: {
       backgroundColor: "#0098a7"
     },
     headerTitle: <View style={{flexGrow: 1}}><Image style={{ alignSelf: 'center', height: 45, width: 120}} source={require('../treki_logo_inline_white.png')}/></View>,
-    headerRight: <Text></Text>,
+    headerRight: <TouchableOpacity 
+          onPress={() => navigation.state.params.deleteHandler()}
+          style={ {width: 40, marginRight: 5, marginTop: 5,}} >
+            <View>
+              <MaterialIcons
+                name="delete"
+                size={32}
+                style={{color: 'white'}} 
+              >
+              </MaterialIcons>
+            </View>
+        </TouchableOpacity>,
     headerTintColor: 'white'
+  })
+
+  componentWillMount(){
+    const {setParams} = this.props.navigation;
+    setParams({deleteHandler: this.deleteHandler});
+  }
+
+  deleteHandler = () => {
+    this.props.deleteDevice(this.state.id);
+    this.props.navigation.navigate('listUserDevices');
   }
 
   constructor () {
@@ -123,6 +146,7 @@ class UserDetailDevice extends Component {
             longitude={this.state.deviceLocation.longitude}
             userLatitude={this.state.userLocation.latitude}
             userLongitude={this.state.userLocation.longitude}
+            home={false}
             devices={this.props.devices.filter(device => device.device_id == this.state.detail.device_id)} />
         </View>
       </View>
@@ -225,13 +249,14 @@ const style = StyleSheet.create({
     fontWeight: '500',
     fontSize: 30,
     fontFamily: 'Roboto'
-  }
+  },
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   getUserDetailDevice,
   updateState,
   GetLocation,
+  deleteDevice
 }, dispatch)
 
 const mapStateToProps = (state) => ({

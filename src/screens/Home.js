@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, ToastAndroid, PermissionsAndroid, TouchableHighlight, Image, FlatList} from 'react-native';
+import { View, Text, StyleSheet, Button, ToastAndroid, PermissionsAndroid, TouchableHighlight, Image, FlatList, ScrollView} from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -11,7 +11,7 @@ import ScanDevice from './ScanDevice';
 import AddDevice from './AddDevice';
 import Maps from '../components/Maps';
 import HamburgerButton from '../components/HamburgerButton';
-import ListUserDeviceHome from '../components/ListUserDeviceHome';
+import ListUserDevice from '../components/user_devices/ListUserDevices';
 import Modal from "react-native-modal";
 import { loadRegisteredDevices, updateDeviceLocation, LoadTreki, GetLocation } from '../store/treki/treki.action';
 import { getUserDevices } from '../store/devices/devices.action';
@@ -59,13 +59,17 @@ class Home extends Component {
         accuracy: 0
       },
       isVisible: false,
-      user_id: ''
+      user_id: '',
+      collectable: null,
+      detailLocation: null,
+      detailDevices: null
     }
   }
 
   renderItem = ({item}) => {
+    console
     return (
-      <ListUserDeviceHome item={item} navigation={this.props.navigation}/>
+      <ListUserDevice item={item} navigation={this.props.navigation} off={true}/>
     )
   }
 
@@ -74,10 +78,16 @@ class Home extends Component {
   componentWillMount = async () => {
     await this.props.LoadTreki(this.setCoordinate);
   }
-
+  
   componentDidMount () {
     this.props.updateTokenDevice(this.props.uid, userDeviceToken)
     // console.warn(`==> userId: ${this.props.uid}, ==> userDeviceToken ${userDeviceToken}`)
+    console.warn('collet'+JSON.stringify(this.props.collectableDevices))
+    console.warn("dev"+JSON.stringify(this.props.collectableDevices.map(devices => {
+      let filtered =  devices.devices.filter(device => device.user_id == this.props.uid)
+      return {location: devices.location, devices: filtered}
+    }).filter(device => device.devices.length > 0)))
+   
   }
 
   setCoordinate = () => {
@@ -111,6 +121,14 @@ class Home extends Component {
     }, true);
   }
 
+
+  componentWillUnmount () {
+    this.setState({
+      isVisible: false
+    })
+  }
+
+
   render() {
     return (
       <View style={styles.container}>
@@ -120,24 +138,38 @@ class Home extends Component {
           longitude={this.state.midPoint.longitude}
           userLatitude={this.state.midPoint.latitude}
           userLongitude={this.state.midPoint.longitude}
-          devices={this.props.devices.filter(device => device.user_id == this.props.uid)} />
-        <TouchableHighlight style={styles.button} onPress={() => {
-          this.setState({isVisible: true})
-        }}>  
-        <Image style={styles.image}source={require('../treki_logo_circle.png')}/>    
-        </TouchableHighlight>
+          home={true}
+          devices={this.props.collectableDevices.map(devices => {
+            let filtered =  devices.devices.filter(device => device.user_id == this.props.uid)
+            return {location: devices.location, devices: filtered}
+            }).filter(device => device.devices.length > 0)} 
+              modalActive={(location) => {
+              this.setState({
+                isVisible: true,
+                detailLocation: location
+              }, () => {
+                let temp = this.props.collectableDevices.filter(val => (val.location.latitude === this.state.detailLocation.latitude) && (val.location.longitude === this.state.detailLocation.longitude))
+                console.warn('temp', temp)
+                this.setState({
+                  detailDevices: temp[0].devices
+                }, () => {
+                  console.warn('detail', JSON.stringify(this.state.detailDevices))
+                })
+              })
+          }}/>  
+          {/* devices={this.props.devices.filter(device => device.user_id == this.props.uid)} /> */}
         {/* <ModalList isVisible={this.state.isVisible} /> */}
 
          <Modal style={styles.modalWrapper} isVisible={this.state.isVisible}>
           <View style={styles.modal}>
             <FlatList 
               contentContainerStyle = { styles.flatList }
-              data = { this.props.userDevices }
+              data = { this.state.detailDevices }
               renderItem = { this.renderItem }
               keyExtractor = { this.keyExtractor }
             />
-            <TouchableHighlight onPress={() => this.setState({isVisible: false})}>
-              <Text style={{backgroundColor: 'red'}}>Hide me!</Text>
+            <TouchableHighlight style={{justifyContent: 'center', alignItems: 'center', width:80, height:80, borderRadius:40}} onPress={() => this.setState({isVisible: false})}>
+              <Image source={require('../exit.png')} style={styles.exit}/>
             </TouchableHighlight>
           </View>
         </Modal>
@@ -145,6 +177,7 @@ class Home extends Component {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: { ...StyleSheet.absoluteFillObject },
@@ -167,9 +200,11 @@ const styles = StyleSheet.create({
     borderRadius: 30
   },
   modal: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
+    backgroundColor: 'transparent',
+    alignItems: 'center',
     borderRadius: 10,
-    width: 300,
+    width: "100%",
     height: 400
   },
   modalWrapper: {
@@ -180,6 +215,10 @@ const styles = StyleSheet.create({
   flatList: {
     alignItems: 'center'
   },
+  exit: {
+    width: 50,
+    height: 50
+  }
 })
 
 const mapStateToProps = (state) => {
@@ -190,6 +229,7 @@ const mapStateToProps = (state) => {
     registeredDevices: state.treki.registeredDevices,
     userDevices: state.devicesReducer.userDevices,
     uid: state.userReducer.uid,
+    collectableDevices: state.treki.collectableDevices
   }
 }
 

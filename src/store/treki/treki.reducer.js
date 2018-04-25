@@ -4,7 +4,8 @@ const initialState = {
   isLoading: false,
   isError: false,
   devices: [],
-  registeredDevices: []
+  registeredDevices: [],
+  collectableDevices: []
 }
 
 export const treki = (state = {...initialState}, action) => {
@@ -14,7 +15,7 @@ export const treki = (state = {...initialState}, action) => {
     case ERROR:
       return { ...state, isLoading: false, isError: true };
     case LOAD_TREKI_SUCCESS:
-      return { ...state, isLoading: false, devices: action.value };
+      return { ...state, isLoading: false, devices: action.value, collectableDevices: action.collectable };
     case LOAD_REGISTERED_DEVICE_SUCCESS:
       return { ...state, isLoading: false, registeredDevices: action.payload }
     default:

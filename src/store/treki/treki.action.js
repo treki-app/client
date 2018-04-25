@@ -20,10 +20,11 @@ const error = () => {
   }
 }
 
-const success = (value) => {
+const success = (value, collectable) => {
   return {
     type: LOAD_TREKI_SUCCESS,
-    value
+    value,
+    collectable
   }
 }
 
@@ -45,30 +46,30 @@ export const LoadTreki = (callback) => {
         value.push(item);
       });
           
-      // let arr = []
+      let arr = []
 
-      // value.forEach(val => {
-      //   let tempObj = {}
-      //   let location = arr.filter(arrVal => {
-      //     return (val.location.latitude === arrVal.location.latitude)&&(val.location.longitude === arrVal.location.longitude)
-      //   })
-      //   // console.log("location "+location + " " + location.length)
-      //   if(location.length === 0){
-      //     tempObj.location = (val.location)
-      //     tempObj.devices = []
-      //     tempObj.devices.push(val)
-      //     arr.push(tempObj)
-      //   } else {
-      //     let index = arr.indexOf(location[0])
-      //     arr[index].devices.push(val)
-      //   }
-      // })
-      // arr.forEach((val, i) => {
-      //   console.warn('Locat '+i+' '+JSON.stringify(val))
-      // })
+      value.forEach(val => {
+        let tempObj = {}
+        let location = arr.filter(arrVal => {
+          return (val.location.latitude === arrVal.location.latitude)&&(val.location.longitude === arrVal.location.longitude)
+        })
+        // console.log("location "+location + " " + location.length)
+        if(location.length === 0){
+          tempObj.location = (val.location)
+          tempObj.devices = []
+          tempObj.devices.push(val)
+          arr.push(tempObj)
+        } else {
+          let index = arr.indexOf(location[0])
+          arr[index].devices.push(val)
+        }
+      })
+      arr.forEach((val, i) => {
+        // console.warn('Locat '+i+' '+JSON.stringify(val))
+      })
       // console.warn("LOCATIONSSS", arr.map(val=> val.devices.length))
 
-      dispatch(success(value));
+      dispatch(success(value, arr));
       callback();
     }, error => {
       dispatch(error());
@@ -140,6 +141,15 @@ export const updateDeviceLocation = (payload) => {
       data: {
         location: payload.location
       }
+    })
+  }
+}
+
+export const deleteDevice = (id) => {
+  return dispatch => {
+    axios({
+      method: `DELETE`,
+      url: `http://treki.fadhilmch.com/treki/${id}`
     })
   }
 }

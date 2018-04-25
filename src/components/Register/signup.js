@@ -88,6 +88,12 @@ const styles = StyleSheet.create({
     color: 'rgba(255,255,255, 0.7)',
     marginTop: 20,
     marginBottom: 15
+    },
+    TextLoading:{
+      fontSize: 20,
+      color: 'rgba(255,255,255, 0.7)',
+      marginTop: 20,
+      marginBottom: 25
     }
 })
 

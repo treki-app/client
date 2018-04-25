@@ -27,10 +27,6 @@ class Register extends Component {
           barStyle="light-content"
         />
         <Routes navigation={ this.props.navigation }/>
-        <Button
-          title="Klik sini bray buat tes bluetooth"
-          onPress={() => this.props.navigation.navigate('Home')}
-        />
       </View>
     );
   }

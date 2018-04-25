@@ -31,7 +31,7 @@ class UserDevicesHome extends Component {
 
   renderItem = ({item}) => {
     return (
-      <ListUserDevices item={item} navigation={this.props.navigation} />
+      <ListUserDevices item={item} navigation={this.props.navigation} off={false}/>
     )
   }
 

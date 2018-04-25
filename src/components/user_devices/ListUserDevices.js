@@ -15,7 +15,8 @@ class ListUserDevices extends Component {
 
   viewDetailDevices = (deviceId) => {
     const { navigation } = this.props
-    navigation.navigate('detailDevice', {deviceId: deviceId})
+    if(!this.props.off)
+      navigation.navigate('detailDevice', {deviceId: deviceId})
   }
 
   render() {

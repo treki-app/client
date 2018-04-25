@@ -11,6 +11,8 @@ import {
 import Logo from './logo'
 import Form from './form'
 import {Actions} from 'react-native-router-flux'
+import { connect } from 'react-redux'; 
+import { bindActionCreators } from 'redux';
 
 class Signup extends Component {
   
@@ -57,6 +59,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#006971'
   },
+  containerr:{
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#006971',
+    paddingTop: 20    
+    // justifyContent: 'center',
+  },
   signupTextCont:{
     flexGrow: 1,
     alignItems: 'flex-end',
@@ -82,4 +91,10 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Signup;
+const mapStateToProps = (state) => {
+  return {
+    store : state.userReducer
+  }
+}
+
+export default connect(mapStateToProps, null)(Signup);

@@ -91,14 +91,7 @@ export const loadRegisteredDevices = () => {
 export const GetLocation = (callback) => {
   return async () => {
     try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          'title': 'Treki Location Permission',
-          'message': `Just wanna know your location`
-        }
-      )
-
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         navigator.geolocation.getCurrentPosition(location => callback({ ...location.coords }, null), error => callback(null, error))
       } else ToastAndroid.show("Location permission denied", ToastAndroid.SHORT);

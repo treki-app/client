@@ -72,7 +72,7 @@ class Maps extends Component {
               latitude: this.props.userLatitude,
               longitude: this.props.userLongitude
             }}
-            image={require('../../public/img/pin-point.png')}
+            image={require('../../public/img/pin-point2.png')}
             style={{ zIndex: -1 }}
           />
         </MapView>

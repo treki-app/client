@@ -20,7 +20,7 @@ export default class Marker extends Component {
             latitude: this.props.latitude,
             longitude: this.props.longitude
           }}
-          image={require('../../public/img/marker3.png')}
+          image={require('../../public/img/marker4.png')}
           onPress={() => this.props.modalActive()}
         >
           <View style={styles.container}>
